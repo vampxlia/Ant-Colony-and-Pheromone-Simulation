@@ -2,7 +2,7 @@ package ant.physics;
 
 import processing.core.PApplet;
 import processing.core.PVector;
-import simple_subplot.SubPlot;
+import utils.gui.SubPlot;
 
 public class Body extends Move {
 	protected int color;

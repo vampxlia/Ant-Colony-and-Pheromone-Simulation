@@ -1,3 +1,5 @@
+package configs;
+
 public class Configs {
     private final float aspectRatio = (float) 16/9;
     //aspect ratio é fixo para mander as células quadradas

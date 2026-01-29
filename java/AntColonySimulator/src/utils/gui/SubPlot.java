@@ -1,4 +1,4 @@
-package simple_subplot;
+package utils.gui;
 
 public class SubPlot {
     private double[] window;
