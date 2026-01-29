@@ -15,6 +15,7 @@ public class Boid extends Body {
 	private PImage img;
 	private ArrayList<Behaviour> behaviours;
 	public DNA dna;
+	public Eye eye;
 	public Boid(PVector pos, PVector vel, float mass, PImage img, PApplet p, SubPlot plt) {
 		super(pos, vel, mass, 0.5f, p.color(255));
 		dna = new DNA();
@@ -22,6 +23,10 @@ public class Boid extends Body {
 		this.plt = plt;
 		this.img = img;
 		setShape(p, plt);
+	}
+
+	public void setEye(Eye eye){
+		this.eye = eye;
 	}
 
 	public void setShape(PApplet p, SubPlot plt){
@@ -38,6 +43,24 @@ public class Boid extends Body {
 		behaviours.remove(behaviour);
 	}
 
+	public void applyBehavious(float dt){
+		eye.look();
+
+		PVector vd = new PVector();
+		for (Behaviour behaviour: behaviours){
+			PVector vdd = behaviour.getDesiredVelocity(this);
+			vdd.mult(behaviour.getWeight());
+			vd.add(vdd);
+		}
+		move(dt, vd);
+	}
+
+	private void move(float dt, PVector vd){
+		vd.normalize().mult(dna.maxSpeed);
+		PVector fs = PVector.sub(vd, vel);
+		applyForce(fs.limit(dna.maxSpeed));
+		super.move(dt);
+	}
 
 	@Override
 	public void display(PApplet p, SubPlot plt){
@@ -48,11 +71,4 @@ public class Boid extends Body {
 		p.imageMode(p.CENTER);
 		p.image(img, 0,0, rr[0], rr[1]);
 	}
-
-	public PVector seek(PVector target){
-		PVector vector_direction = PVector.sub(target, pos);
-		vector_direction.normalize().mult(dna.maxSpeed);
-		return PVector.sub(vector_direction, vel);
-	}
-
 }

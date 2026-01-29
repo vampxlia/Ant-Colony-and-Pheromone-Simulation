@@ -10,15 +10,21 @@ public class Eye {
     private ArrayList<SceneObject> farSight;
     private ArrayList<SceneObject> nearSight;
     private Boid me;
+    private SceneObject target;
 
     public Eye(Boid me, ArrayList<SceneObject> allTrackingBodies){
         this.me = me;
         this.allTrackingBodies = allTrackingBodies;
-        farSight = new ArrayList<>();
-        nearSight = new ArrayList<>();
+        target = allTrackingBodies.get(0);
+    }
+
+    public SceneObject getTarget() {
+        return target;
     }
 
     public void look(){
+        farSight = new ArrayList<>();
+        nearSight = new ArrayList<>();
         for (SceneObject object : allTrackingBodies){
             if(farSight(object.getPos())) farSight.add(object);
             if(nearSight(object.getPos())) nearSight.add(object);
