@@ -16,12 +16,13 @@ public class Boid extends Body {
 	private ArrayList<Behaviour> behaviours;
 	public DNA dna;
 	public Eye eye;
+	public float phiWander;
 	public Boid(PVector pos, PVector vel, float mass, PImage img, PApplet p, SubPlot plt) {
 		super(pos, vel, mass, 0.5f, p.color(255));
 		dna = new DNA();
 		behaviours = new ArrayList<>();
 		this.plt = plt;
-		this.img = img;
+		this.img = img.copy();
 		setShape(p, plt);
 	}
 
@@ -64,11 +65,16 @@ public class Boid extends Body {
 
 	@Override
 	public void display(PApplet p, SubPlot plt){
-		float[] rr = plt.getVectorCoord(radius, radius);
-		float[] pp = plt.getPixelCoord(pos.x, pos.y);
-		p.translate(pp[0], pp[1]);
-		p.rotate(vel.heading());
-		p.imageMode(p.CENTER);
-		p.image(img, 0,0, rr[0], rr[1]);
+		//TODO imagens não estão a representar corretamente a posição por razões que me iludem
+		//por agora deixei um círculo branco só para dar para ver algo
+		//remover super quando estiver fixed
+		super.display(p, plt);
+		
+		//float[] rr = plt.getVectorCoord(radius, radius);
+		//float[] pp = plt.getPixelCoord(pos.x, pos.y);
+		//p.translate(pp[0], pp[1]);
+		//p.rotate(vel.heading());
+		//p.imageMode(p.CENTER);
+		//p.image(img, 0,0, rr[0], rr[1]);
 	}
 }

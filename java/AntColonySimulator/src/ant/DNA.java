@@ -7,12 +7,22 @@ public class DNA {
     public float visionSafeDistance;
     public float visionAngle;
 
+    public float deltaTWander;
+    public float radiusWander;
+    public float deltaPhiWander;
+
     public DNA(){
+        //basics
         this.maxSpeed = random(3, 5);
         this.maxForce = random(4, 7);
         visionDistance = random(2, 4);
         visionSafeDistance = 0.25f * visionDistance;
         visionAngle = (float) (Math.PI) / 2;
+
+        //wander
+        radiusWander = random(3f,3f);
+        deltaTWander = random(1f, 1f);
+        deltaPhiWander = (float)Math.PI/4;
     }
 
     public static float random(float min, float max) {

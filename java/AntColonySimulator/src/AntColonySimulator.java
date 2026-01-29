@@ -2,6 +2,7 @@ import ant.Boid;
 import ant.DNA;
 import ant.Eye;
 import ant.behaviours.implementations.Seek;
+import ant.behaviours.implementations.Wander;
 import ant.physics.Body;
 import nest.Nest;
 import processing.core.PApplet;
@@ -33,7 +34,7 @@ public class AntColonySimulator implements IProcessingApp {
         PImage antImage = p.loadImage("assets/ant.png");
         PImage nestImage = p.loadImage("assets/nest.png");
         plt = new SubPlot(window, viewport, p.width, p.height);
-        nest = new Nest(new PVector(), 1, 1f, nestImage, antImage, p, plt);
+        nest = new Nest(new PVector(), 3, 1f, nestImage, antImage, p, plt);
         ants = nest.getAnts();
 
         target = new Body(new PVector(), new PVector(), 1f, 0.2f, p.color(255,0,0));
@@ -41,7 +42,7 @@ public class AntColonySimulator implements IProcessingApp {
         allTrackingBodies.add(target);
 
         for (Boid ant : ants) {
-            ant.addBehaviour(new Seek(1f));
+            ant.addBehaviour(new Wander(1f));
             Eye eye = new Eye(ant, allTrackingBodies);
             ant.setEye(eye);
         }
