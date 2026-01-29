@@ -2,6 +2,7 @@ package ant.physics;
 
 import processing.core.PApplet;
 import processing.core.PVector;
+import utils.SceneObject;
 import utils.gui.SubPlot;
 
 public class Body extends Move {

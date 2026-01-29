@@ -15,7 +15,6 @@ public class AntColonySimulator implements IProcessingApp {
     private double[] window = {-10, 10, -10, 10};
     private float[] viewport = {0,0,1,1};
     private SubPlot plt;
-    private DNA dna;
     private float[] maxSpeed = {4, 4};
     private PVector target;
     private ArrayList<Boid> ants;
@@ -30,8 +29,7 @@ public class AntColonySimulator implements IProcessingApp {
         PImage ant = p.loadImage("assets/ant.png");
         PImage nest = p.loadImage("assets/nest.png");
         plt = new SubPlot(window, viewport, p.width, p.height);
-        dna = new DNA(maxSpeed);
-        n = new Nest(new PVector(), 2, 1f, nest, ant, dna, p, plt);
+        n = new Nest(new PVector(), 1, 1f, nest, ant, p, plt);
         ants = n.getAnts();
         target = new PVector();
     }

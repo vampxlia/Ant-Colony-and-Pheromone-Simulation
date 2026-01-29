@@ -1,9 +1,9 @@
 package pheromone;
 
-public class Pheromones {
+public class PheromonesGrid {
     private int[][] pheromones;
     private double decayRate;
-    public Pheromones(int xSize, int ySize, double decayRate){
+    public PheromonesGrid(int xSize, int ySize, double decayRate){
         this.pheromones = new int[xSize][ySize];
         this.decayRate = decayRate;
     }

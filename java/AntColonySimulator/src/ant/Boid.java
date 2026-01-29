@@ -14,8 +14,10 @@ public class Boid extends Body {
 	private SubPlot plt;
 	private PImage img;
 	private ArrayList<Behaviour> behaviours;
-	public Boid(PVector pos, PVector vel, float mass, PImage img, DNA dna, PApplet p, SubPlot plt) {
+	public DNA dna;
+	public Boid(PVector pos, PVector vel, float mass, PImage img, PApplet p, SubPlot plt) {
 		super(pos, vel, mass, 0.5f, p.color(255));
+		dna = new DNA();
 		behaviours = new ArrayList<>();
 		this.plt = plt;
 		this.img = img;
@@ -28,7 +30,14 @@ public class Boid extends Body {
 		//p.image(img, 0, 0, );
 	}
 
-	
+	public void addBehaviour(Behaviour behaviour){
+		behaviours.add(behaviour);
+	}
+
+	public void removeBehaviour(Behaviour behaviour){
+		behaviours.remove(behaviour);
+	}
+
 
 	@Override
 	public void display(PApplet p, SubPlot plt){
@@ -42,9 +51,8 @@ public class Boid extends Body {
 
 	public PVector seek(PVector target){
 		PVector vector_direction = PVector.sub(target, pos);
-		vector_direction.normalize().mult(10);
+		vector_direction.normalize().mult(dna.maxSpeed);
 		return PVector.sub(vector_direction, vel);
-
 	}
 
 }

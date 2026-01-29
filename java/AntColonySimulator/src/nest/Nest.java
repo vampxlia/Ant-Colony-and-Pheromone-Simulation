@@ -5,25 +5,24 @@ import ant.DNA;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
+import utils.SceneObject;
 import utils.gui.SubPlot;
 
 import java.util.ArrayList;
 
-public class Nest {
+public class Nest implements SceneObject {
     private ArrayList<Boid> ants;
     private PImage nestImage;
     private PImage antImage;
-    private DNA dna;
     private PApplet p;
     private SubPlot plt;
     private PVector pos;
     private float radius;
-    public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, DNA dna, PApplet p, SubPlot plt){
+    public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, PApplet p, SubPlot plt){
         this.pos = pos;
         this.nestImage = nestImage;
         this.antImage = antImage;
         this.radius = radius;
-        this.dna = dna;
         this.p = p;
         this.plt = plt;
         ants = new ArrayList<Boid>();
@@ -44,7 +43,7 @@ public class Nest {
 
     public void spawnAnt(int nAnts){
         for (int i = 0; i < nAnts; i++){
-            Boid b = new Boid(this.pos, new PVector(), 1F, antImage, dna, p, plt);
+            Boid b = new Boid(this.pos, new PVector(), 1F, antImage, p, plt);
             ants.add(b);
         }
     }
@@ -53,4 +52,8 @@ public class Nest {
         return this.ants;
     }
 
+    @Override
+    public PVector getPos() {
+        return this.pos;
+    }
 }

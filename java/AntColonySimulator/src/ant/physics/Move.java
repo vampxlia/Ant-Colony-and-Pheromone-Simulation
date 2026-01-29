@@ -1,8 +1,9 @@
 package ant.physics;
 
 import processing.core.PVector;
+import utils.SceneObject;
 
-public abstract class Move {
+public abstract class Move implements SceneObject {
 	protected PVector pos;
 	protected PVector vel;
 	protected PVector acc;
@@ -35,7 +36,8 @@ public abstract class Move {
 	public void setPos(PVector pos) {
 		this.pos = pos;
 	}
-	
+
+	@Override
 	public PVector getPos() {
 		return pos;
 	}
