@@ -2,10 +2,10 @@ package ant;
 
 import utils.PSControl;
 
-public class DNABoid {
+public class DNA {
     private float[] maxSpeed;
 
-    public DNABoid(float[] maxSpeed){
+    public DNA(float[] maxSpeed){
         this.maxSpeed = maxSpeed;
     }
 

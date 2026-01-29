@@ -6,7 +6,7 @@ public class ProcessingSetup extends PApplet {
 	private int lastUpdate; 
 	
 	public void settings() {
-		size(500,500);
+		size(1000,1000);
 		app.settings(this);
 	}
 	

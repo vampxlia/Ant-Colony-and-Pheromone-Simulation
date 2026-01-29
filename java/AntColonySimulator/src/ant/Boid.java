@@ -1,17 +1,22 @@
 package ant;
 
+import ant.behaviours.Behaviour;
 import ant.physics.Body;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 import utils.gui.SubPlot;
 
+import java.util.ArrayList;
+
 public class Boid extends Body {
 
 	private SubPlot plt;
 	private PImage img;
-	public Boid(PVector pos, PVector vel, float mass, PImage img, DNABoid dna, PApplet p, SubPlot plt) {
+	private ArrayList<Behaviour> behaviours;
+	public Boid(PVector pos, PVector vel, float mass, PImage img, DNA dna, PApplet p, SubPlot plt) {
 		super(pos, vel, mass, 0.5f, p.color(255));
+		behaviours = new ArrayList<>();
 		this.plt = plt;
 		this.img = img;
 		setShape(p, plt);
@@ -22,6 +27,8 @@ public class Boid extends Body {
 		//p.imageMode(p.CENTER);
 		//p.image(img, 0, 0, );
 	}
+
+	
 
 	@Override
 	public void display(PApplet p, SubPlot plt){

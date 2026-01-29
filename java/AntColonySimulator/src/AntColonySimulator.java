@@ -1,21 +1,24 @@
 import ant.Boid;
-import ant.DNABoid;
+import ant.DNA;
+import nest.Nest;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 import utils.gui.IProcessingApp;
 import utils.gui.SubPlot;
 
+import java.util.ArrayList;
+
 public class AntColonySimulator implements IProcessingApp {
 
-    private Boid b;
+    private Nest n;
     private double[] window = {-10, 10, -10, 10};
     private float[] viewport = {0,0,1,1};
     private SubPlot plt;
-    private DNABoid dna;
+    private DNA dna;
     private float[] maxSpeed = {4, 4};
     private PVector target;
-    private PImage ant;
+    private ArrayList<Boid> ants;
 
     @Override
     public void settings(PApplet p) {
@@ -25,20 +28,26 @@ public class AntColonySimulator implements IProcessingApp {
     @Override
     public void setup(PApplet p) {
         PImage ant = p.loadImage("assets/ant.png");
+        PImage nest = p.loadImage("assets/nest.png");
         plt = new SubPlot(window, viewport, p.width, p.height);
-        dna = new DNABoid(maxSpeed);
-        b = new Boid(new PVector(), new PVector(), 1F, ant, dna, p, plt);
+        dna = new DNA(maxSpeed);
+        n = new Nest(new PVector(), 2, 1f, nest, ant, dna, p, plt);
+        ants = n.getAnts();
         target = new PVector();
     }
 
     @Override
     public void draw(PApplet p, float dt) {
         p.background(0);
-        PVector f = b.seek(target);
-        b.applyForce(f);
-        b.move(dt);
+        n.display(p, plt);
 
-        b.display(p, plt);
+        for (Boid ant : ants) {
+            PVector f = ant.seek(target);
+            ant.applyForce(f);
+            ant.move(dt);
+
+            ant.display(p, plt);
+        }
     }
 
     @Override
