@@ -2,6 +2,7 @@ package nest;
 
 import ant.Ant;
 import ant.boid.Boid;
+import pheromone.Pheromones;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -19,6 +20,8 @@ public class Nest implements SceneObject {
     private PVector pos;
     private float radius;
     private float intensity;
+    private float pheromoneWindow = 0.5f;
+    private float pheromoneTimer = 0f;
     public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, PApplet p, SubPlot plt){
         this.pos = pos;
         this.nestImage = nestImage;
@@ -39,16 +42,25 @@ public class Nest implements SceneObject {
         return intensity;
     }
 
-    public void display(PApplet p, SubPlot plt){
+    public void display(PApplet p, SubPlot plt, float dt, Pheromones pheromones){
+
+        pheromoneTimer += dt;
+        for (Ant ant : ants) {
+            ant.applyBehavious(dt);
+            ant.display(p, plt);
+            if(pheromoneTimer >= pheromoneWindow) {
+                ant.dropPheromone(pheromones);
+            }
+        }
+        if(pheromoneTimer >= pheromoneWindow) {
+            pheromoneTimer = 0f;
+        }
+
         float[] rr = plt.getVectorCoord(radius, radius);
         float[] pp = plt.getPixelCoord(pos.x, pos.y);
         p.imageMode(p.CENTER);
         p.image(nestImage, pp[0],pp[1], rr[0], rr[1]);
 
-        //display associated ants
-        for (Boid ant : ants) {
-            //TODO comportamento das formigas
-        }
     }
 
     public void spawnAnt(int nAnts){
