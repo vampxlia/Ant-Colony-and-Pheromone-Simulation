@@ -15,11 +15,9 @@ import processing.core.PVector;
 import utils.SceneObject;
 import utils.gui.IProcessingApp;
 import utils.gui.SubPlot;
-
 import java.util.ArrayList;
 
 public class AntColonySimulator implements IProcessingApp {
-
     private Nest nest;
     private Food food;
     private final double[] window = {-10, 10, -10, 10};
@@ -33,6 +31,9 @@ public class AntColonySimulator implements IProcessingApp {
     private float pheromoneTimer = 0f;
     private float pheromoneWindow = 0.5f;
     private int distanceNestFood = 10;
+    private MusicSystem music;
+
+
 
     @Override
     public void settings(PApplet p) {
@@ -65,6 +66,10 @@ public class AntColonySimulator implements IProcessingApp {
             Eye eye = new Eye(ant, searchTrackingBodies);
             ant.setEye(eye);
         }
+
+        music = new MusicSystem();
+
+
     }
 
     @Override
@@ -72,6 +77,7 @@ public class AntColonySimulator implements IProcessingApp {
         p.background(0);
         pheromones.update();
         pheromoneTimer += dt;
+        music.update(dt, ants);
         for (Ant ant : ants) {
             ant.applyBehavious(dt);
             ant.display(p, plt);
