@@ -55,6 +55,8 @@ public class Pheromone extends Cell implements SceneObject {
 
     @Override
     public PVector getPos() {
-        return null;
+        return new PVector((ca.xmin + col * ca.getCellWidth()) + (ca.getCellWidth() / 2),
+                           (ca.ymin + row * ca.getCellHeight()) + (ca.getCellHeight() / 2));
+                              //inicio plot + nCelulas*tamanho + tamanho / 2
     }
 }
