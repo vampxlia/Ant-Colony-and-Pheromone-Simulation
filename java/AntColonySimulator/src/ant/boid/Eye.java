@@ -40,6 +40,7 @@ public class Eye {
         float bestScore = -Float.MAX_VALUE;
         if(!farSight.isEmpty() && !(farSight.get(0).getIntensity(me.state) == 0)) {
             for (SceneObject obj : farSight) {
+                if (target.getIntensity(me.state) > 1) return target; //se ver ninho ou comida, descarta outros alvos
 
                 float dist = PVector.dist(me.getPos(), obj.getPos());
                 float normDist = 1.0f - dist / me.dna.visionDistance;

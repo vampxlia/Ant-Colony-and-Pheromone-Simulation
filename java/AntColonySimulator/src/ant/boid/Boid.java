@@ -55,7 +55,6 @@ public class Boid extends Body {
 			if (vdd != null){
 				vdd.mult(behaviour.getWeight());
 				vd.add(vdd);
-				break;
 			}
 		}
 		move(dt, vd);

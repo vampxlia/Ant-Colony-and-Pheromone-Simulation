@@ -41,8 +41,8 @@ public class AntColonySimulator implements IProcessingApp {
         PImage antImage = p.loadImage("assets/ant.png");
         PImage nestImage = p.loadImage("assets/nest.png");
         PImage foodImage = p.loadImage("assets/food.png");
-        PVector foodPosition = new PVector(3, 3);
-        PVector nestPosition = new PVector(-3, -3);
+        PVector foodPosition = new PVector(2, 2);
+        PVector nestPosition = new PVector(-2, -2);
         plt = new SubPlot(window, viewport, p.width, p.height);
         nest = new Nest(nestPosition, 20, 1f, nestImage, antImage, p, plt);
         food = new Food(foodPosition,1f, foodImage, p, plt);
@@ -71,7 +71,7 @@ public class AntColonySimulator implements IProcessingApp {
         music.update(dt, ants);
 
         //atualizar listas para seguir
-        allTrackingBodies = pheromones.getActivePheromones(0.2f, food, nest);
+        allTrackingBodies = pheromones.getActivePheromones(0f, food, nest);
 
         for (Ant ant : ants) {
             ant.updateStateAndEye(nest, food, allTrackingBodies);

@@ -33,13 +33,13 @@ public class Ant extends Boid {
         if (this.state == AntState.SEARCH) {
             if (PVector.dist(this.pos, food.getPos()) < food.getRadius()) {
                 this.state = AntState.RETURN;
-                this.vel = new PVector();
+                this.vel.rotate(180);
             }
         }
         if (this.state == AntState.RETURN) {
             if (PVector.dist(this.pos, nest.getPos()) < nest.getRadius()) {
                 this.state = AntState.SEARCH;
-                this.vel = new PVector();
+                this.vel.rotate(180);
             }
         }
     }
