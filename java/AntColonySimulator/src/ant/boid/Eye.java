@@ -24,23 +24,31 @@ public class Eye {
     }
 
     public SceneObject getBestTarget() {
+        /*
+        farSight.sort((a, b) -> {return
+                (int) ((40 * (b.getIntensity(me.state) - a.getIntensity(me.state))) +
+                        60 * ((1.0f - PVector.dist(me.getPos(), a.getPos()) / me.dna.visionDistance) - 1.0f - PVector.dist(me.getPos(), b.getPos()) / me.dna.visionDistance));
+            //eu não faço a minima idea se esta conta está feita de forma certa, mas we ball.
+            //queria fazer de forma elegante com funções lambda a ver se o arnaldo gosta mais de nós
+        });
+        if (!farSight.isEmpty() && !(farSight.get(0).getIntensity(me.state) == 0)){
+            return farSight.get(0);
+        } else return null;
+        */
 
         SceneObject best = target;
         float bestScore = -Float.MAX_VALUE;
-        if(!farSight.isEmpty()) {
+        if(!farSight.isEmpty() && !(farSight.get(0).getIntensity(me.state) == 0)) {
             for (SceneObject obj : farSight) {
 
                 float dist = PVector.dist(me.getPos(), obj.getPos());
                 float normDist = 1.0f - dist / me.dna.visionDistance;
                 normDist = Math.max(0, normDist);
 
-                float normIntensity = obj.getIntensity();
+                float normIntensity = obj.getIntensity(me.state);
                 // assumindo intensity ∈ [0,1]
 
-                float score =
-                        0.7f * normDist +
-                                0.3f * normIntensity;
-
+                float score = 0.6f * normDist + 0.4f * normIntensity;
                 if (score > bestScore) {
                     bestScore = score;
                     best = obj;
@@ -50,8 +58,6 @@ public class Eye {
         } else {
             target = null;
         }
-
-        //System.out.println(allTrackingBodies);
         return target;
     }
 

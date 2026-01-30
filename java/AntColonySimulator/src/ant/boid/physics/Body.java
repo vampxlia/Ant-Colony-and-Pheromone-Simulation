@@ -1,5 +1,6 @@
 package ant.boid.physics;
 
+import ant.AntState;
 import processing.core.PApplet;
 import processing.core.PVector;
 import utils.gui.SubPlot;
@@ -11,6 +12,11 @@ public class Body extends Move {
 		super(pos, vel, mass);
 		this.color = color;
 		this.radius = radius;
+	}
+
+	@Override
+	public float getIntensity(AntState state) {
+		return 0;
 	}
 
 	public float getRadius(){

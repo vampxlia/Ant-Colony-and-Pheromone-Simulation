@@ -17,10 +17,6 @@ public abstract class Move implements SceneObject {
 		acc = new PVector();
 	}
 
-	public float getIntensity(){
-		return 0f;
-	}
-	
 	public void applyForce(PVector force) {
 		acc.add(PVector.div(force, mass));
 	}
@@ -45,12 +41,13 @@ public abstract class Move implements SceneObject {
 		float xmax =  10;
 		float ymin = -10;
 		float ymax =  10;
+		if (pos.x < xmin || pos.y < ymin || pos.x > xmax || pos.y > ymax) this.vel.rotate(180); //rodar a dar 'bounce' das paredes
 
-		if (pos.x < xmin) pos.x = xmax;
-		else if (pos.x > xmax) pos.x = xmin;
+		//if (pos.x < xmin) pos.x = xmax;
+		//else if (pos.x > xmax) pos.x = xmin;
 
-		if (pos.y < ymin) pos.y = ymax;
-		else if (pos.y > ymax) pos.y = ymin;
+		//if (pos.y < ymin) pos.y = ymax;
+		//else if (pos.y > ymax) pos.y = ymin;
 	}
 
 

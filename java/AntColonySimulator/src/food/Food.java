@@ -1,6 +1,7 @@
 package food;
 
 import ant.Ant;
+import ant.AntState;
 import ant.boid.Boid;
 import ant.boid.physics.Body;
 import processing.core.PApplet;
@@ -11,26 +12,30 @@ import utils.gui.SubPlot;
 
 public class Food implements SceneObject {
     private Body body;
-    private PImage foodImage;
+    private final PImage foodImage;
     private PApplet p;
     private SubPlot plt;
-    private PVector pos;
-    private float radius;
-    private float intensity;
+    private final PVector pos;
+    private final float radius;
+    private final float intensity;
     public Food(PVector pos, float radius, PImage foodImage, PApplet p, SubPlot plt){
         this.pos = pos;
         this.foodImage = foodImage;
         this.radius = radius;
         this.p = p;
         this.plt = plt;
-        this.intensity = 1f;
+        this.intensity = 2f;
     }
     public PVector getPos() {
         return pos;
     }
-    public float getIntensity(){
-        return intensity;
+
+    @Override
+    public float getIntensity(AntState state) {
+        if (state == AntState.SEARCH) return intensity;
+        else return 0f;
     }
+
     public float getRadius(){
         return radius;
     }

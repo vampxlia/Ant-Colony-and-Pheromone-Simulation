@@ -1,5 +1,6 @@
 package pheromone;
 
+import ant.AntState;
 import pheromone.ca.Cell;
 import pheromone.ca.CellularAutomata;
 import processing.core.PApplet;
@@ -17,13 +18,9 @@ public class Pheromone extends Cell implements SceneObject {
         this.returnIntensity = 0;
     }
 
-    public float getIntensity(){
-        if (searchIntensity>0){
-            return searchIntensity;
-        }
-        else if (returnIntensity>0){
-            return returnIntensity;
-        }
+    public float getIntensity(AntState state){
+        if (state == AntState.RETURN) return searchIntensity;
+        if (state == AntState.SEARCH) return returnIntensity;
         return 0f;
     }
 
@@ -32,8 +29,6 @@ public class Pheromone extends Cell implements SceneObject {
     }
 
     public void decay(float decayRate){
-        //this.searchIntensity = (int) (this.searchIntensity - (this.searchIntensity * decayRate));
-        //this.returnIntensity = (int) (this.returnIntensity  - (this.returnIntensity * decayRate));
         this.searchIntensity = Math.max(this.searchIntensity - decayRate, 0);
         this.returnIntensity = Math.max(this.returnIntensity - decayRate, 0);
     }

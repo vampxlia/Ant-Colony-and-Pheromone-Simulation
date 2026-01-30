@@ -1,13 +1,13 @@
 package pheromone;
 
-import pheromone.ca.Cell;
+import food.Food;
+import nest.Nest;
 import pheromone.ca.CellularAutomata;
 import processing.core.PApplet;
 import utils.SceneObject;
 import utils.gui.SubPlot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Pheromones extends CellularAutomata{
     public Pheromones(PApplet p, SubPlot plt, int nrows, int ncols, int nStates, int radiusNeigh) {
@@ -18,7 +18,7 @@ public class Pheromones extends CellularAutomata{
         for (int i=0;i<nrows;i++) {
             for (int j=0;j<ncols;j++) {
                 Pheromone pheromone = (Pheromone) cells[i][j];
-                pheromone.decay(0.005f);
+                pheromone.decay(0.001f);
             }
         }
     }
@@ -42,27 +42,16 @@ public class Pheromones extends CellularAutomata{
         return (Pheromone) cells[row][col];
     }
 
-    public ArrayList<SceneObject> getSearchPheromones (float threshold){
+    public ArrayList<SceneObject> getActivePheromones(float threshold, Food food, Nest nest){
         ArrayList<SceneObject> searchPheromonesList = new ArrayList<>();
+        searchPheromonesList.add(food);
+        searchPheromonesList.add(nest);
         for (int i=0;i<nrows;i++) {
             for (int j=0;j<ncols;j++) {
                 Pheromone pheromone = (Pheromone) cells[i][j];
-                if (pheromone.searchIntensity > threshold) searchPheromonesList.add(pheromone);
+                if (pheromone.returnIntensity > threshold || pheromone.searchIntensity > threshold) searchPheromonesList.add(pheromone);
             }
         }
         return  searchPheromonesList;
     }
-    public ArrayList<SceneObject> getReturnPheromones (float threshold){
-        ArrayList<SceneObject> returnPheromonesList = new ArrayList<>();
-        for (int i=0;i<nrows;i++) {
-            for (int j=0;j<ncols;j++) {
-                Pheromone pheromone = (Pheromone) cells[i][j];
-                if (pheromone.returnIntensity > threshold) returnPheromonesList.add(pheromone);
-            }
-        }
-        return  returnPheromonesList;
-    }
-
-
-
 }

@@ -1,7 +1,12 @@
 package nest;
 
 import ant.Ant;
+import ant.AntState;
 import ant.boid.Boid;
+import ant.boid.Eye;
+import ant.boid.behaviours.implementations.Brake;
+import ant.boid.behaviours.implementations.Seek;
+import ant.boid.behaviours.implementations.Wander;
 import pheromone.Pheromones;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -13,13 +18,13 @@ import java.util.ArrayList;
 
 public class Nest implements SceneObject {
     private ArrayList<Ant> ants;
-    private PImage nestImage;
-    private PImage antImage;
-    private PApplet p;
-    private SubPlot plt;
-    private PVector pos;
-    private float radius;
-    private float intensity;
+    private final PImage nestImage;
+    private final PImage antImage;
+    private final PApplet p;
+    private final SubPlot plt;
+    private final PVector pos;
+    private final float radius;
+    private final float intensity;
     private float pheromoneWindow = 0.5f;
     private float pheromoneTimer = 0f;
     public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, PApplet p, SubPlot plt){
@@ -31,15 +36,16 @@ public class Nest implements SceneObject {
         this.plt = plt;
         ants = new ArrayList<Ant>();
         spawnAnt(nAnts);
-        this.intensity = 1f;
+        this.intensity = 2f;
     }
 
     public float getRadius(){
         return radius;
     }
 
-    public float getIntensity(){
-        return intensity;
+    public float getIntensity(AntState state){
+        if (state == AntState.RETURN) return intensity;
+        else return 0f;
     }
 
     public void display(PApplet p, SubPlot plt, float dt, Pheromones pheromones){
@@ -66,6 +72,8 @@ public class Nest implements SceneObject {
     public void spawnAnt(int nAnts){
         for (int i = 0; i < nAnts; i++){
             Ant ant = new Ant(this.pos, new PVector(), 1F, antImage, p, plt);
+            ant.addBehaviour(new Seek(1f));
+            ant.addBehaviour(new Wander(1f));
             ants.add(ant);
         }
     }

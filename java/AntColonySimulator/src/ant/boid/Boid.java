@@ -1,5 +1,6 @@
 package ant.boid;
 
+import ant.AntState;
 import ant.boid.behaviours.Behaviour;
 import ant.boid.physics.Body;
 import processing.core.PApplet;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 
 public class Boid extends Body {
 
+	public AntState state;
 	private SubPlot plt;
 	private PImage img;
 	private ArrayList<Behaviour> behaviours;
@@ -50,9 +52,10 @@ public class Boid extends Body {
 		PVector vd = new PVector();
 		for (Behaviour behaviour: behaviours){
 			PVector vdd = behaviour.getDesiredVelocity(this);
-			if(vdd != null){
+			if (vdd != null){
 				vdd.mult(behaviour.getWeight());
 				vd.add(vdd);
+				break;
 			}
 		}
 		move(dt, vd);
