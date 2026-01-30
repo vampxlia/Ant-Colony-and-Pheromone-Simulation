@@ -1,4 +1,4 @@
-package ant;
+package ant.boid;
 
 public class DNA {
     public float maxSpeed;

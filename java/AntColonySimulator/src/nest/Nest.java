@@ -1,7 +1,7 @@
 package nest;
 
-import ant.Boid;
-import ant.DNA;
+import ant.Ant;
+import ant.boid.Boid;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -11,7 +11,7 @@ import utils.gui.SubPlot;
 import java.util.ArrayList;
 
 public class Nest implements SceneObject {
-    private ArrayList<Boid> ants;
+    private ArrayList<Ant> ants;
     private PImage nestImage;
     private PImage antImage;
     private PApplet p;
@@ -25,7 +25,7 @@ public class Nest implements SceneObject {
         this.radius = radius;
         this.p = p;
         this.plt = plt;
-        ants = new ArrayList<Boid>();
+        ants = new ArrayList<Ant>();
         spawnAnt(nAnts);
     }
 
@@ -43,12 +43,12 @@ public class Nest implements SceneObject {
 
     public void spawnAnt(int nAnts){
         for (int i = 0; i < nAnts; i++){
-            Boid b = new Boid(this.pos, new PVector(), 1F, antImage, p, plt);
-            ants.add(b);
+            Ant ant = new Ant(this.pos, new PVector(), 1F, antImage, p, plt);
+            ants.add(ant);
         }
     }
 
-    public ArrayList<Boid> getAnts(){
+    public ArrayList<Ant> getAnts(){
         return this.ants;
     }
 

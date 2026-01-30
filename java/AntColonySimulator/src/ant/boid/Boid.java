@@ -1,7 +1,7 @@
-package ant;
+package ant.boid;
 
-import ant.behaviours.Behaviour;
-import ant.physics.Body;
+import ant.boid.behaviours.Behaviour;
+import ant.boid.physics.Body;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -69,7 +69,7 @@ public class Boid extends Body {
 		//por agora deixei um círculo branco só para dar para ver algo
 		//remover super quando estiver fixed
 		super.display(p, plt);
-		
+
 		//float[] rr = plt.getVectorCoord(radius, radius);
 		//float[] pp = plt.getPixelCoord(pos.x, pos.y);
 		//p.translate(pp[0], pp[1]);

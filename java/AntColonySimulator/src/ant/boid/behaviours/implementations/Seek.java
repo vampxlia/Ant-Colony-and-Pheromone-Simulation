@@ -1,7 +1,7 @@
-package ant.behaviours.implementations;
+package ant.boid.behaviours.implementations;
 
-import ant.Boid;
-import ant.behaviours.Behaviour;
+import ant.boid.Boid;
+import ant.boid.behaviours.Behaviour;
 import processing.core.PVector;
 import utils.SceneObject;
 

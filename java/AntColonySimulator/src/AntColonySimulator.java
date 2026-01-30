@@ -1,10 +1,10 @@
-import ant.Boid;
-import ant.DNA;
-import ant.Eye;
-import ant.behaviours.implementations.Seek;
-import ant.behaviours.implementations.Wander;
-import ant.physics.Body;
+import ant.Ant;
+import ant.boid.Boid;
+import ant.boid.Eye;
+import ant.boid.behaviours.implementations.Wander;
+import ant.boid.physics.Body;
 import nest.Nest;
+import pheromone.Pheromones;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -21,8 +21,9 @@ public class AntColonySimulator implements IProcessingApp {
     private final float[] viewport = {0,0,1,1};
     private SubPlot plt;
     private Body target;
-    private ArrayList<Boid> ants;
+    private ArrayList<Ant> ants;
     private ArrayList<SceneObject> allTrackingBodies;
+    private Pheromones pheromones;
 
     @Override
     public void settings(PApplet p) {
@@ -37,6 +38,7 @@ public class AntColonySimulator implements IProcessingApp {
         nest = new Nest(new PVector(), 3, 1f, nestImage, antImage, p, plt);
         ants = nest.getAnts();
 
+        pheromones = new Pheromones(p, plt, 200, 200, 2, 1);
         target = new Body(new PVector(), new PVector(), 1f, 0.2f, p.color(255,0,0));
         allTrackingBodies = new ArrayList<>();
         allTrackingBodies.add(target);
@@ -51,12 +53,14 @@ public class AntColonySimulator implements IProcessingApp {
     @Override
     public void draw(PApplet p, float dt) {
         p.background(0);
-        nest.display(p, plt);
+        pheromones.display(p);
 
-        for (Boid ant : ants) {
+        for (Ant ant : ants) {
             ant.applyBehavious(dt);
             ant.display(p, plt);
+            ant.dropPheromone(pheromones);
         }
+        nest.display(p, plt);
     }
 
     @Override

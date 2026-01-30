@@ -1,4 +1,4 @@
-package ant.physics;
+package ant.boid.physics;
 
 import processing.core.PVector;
 import utils.SceneObject;

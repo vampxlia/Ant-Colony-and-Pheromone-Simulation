@@ -1,6 +1,6 @@
-package ant.behaviours;
+package ant.boid.behaviours;
 
-import ant.Boid;
+import ant.boid.Boid;
 import processing.core.PVector;
 
 public class Behaviour implements IBehaviour {

@@ -1,4 +1,4 @@
-package ant;
+package ant.boid;
 
 import processing.core.PVector;
 import utils.SceneObject;
