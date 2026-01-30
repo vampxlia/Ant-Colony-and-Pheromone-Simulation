@@ -15,7 +15,7 @@ public class DNA {
         //basics
         this.maxSpeed = random(3, 5);
         this.maxForce = random(4, 7);
-        visionDistance = random(2, 4);
+        visionDistance = random(1, 1);
         visionSafeDistance = 0.25f * visionDistance;
         visionAngle = (float) (Math.PI) / 2;
 

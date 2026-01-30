@@ -46,8 +46,11 @@ public class Eye {
                     best = obj;
                 }
             }
+            target = best;
+        } else {
+            target = null;
         }
-        target = best;
+
         //System.out.println(allTrackingBodies);
         return target;
     }

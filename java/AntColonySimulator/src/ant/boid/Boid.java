@@ -18,7 +18,7 @@ public class Boid extends Body {
 	public Eye eye;
 	public float phiWander;
 	public Boid(PVector pos, PVector vel, float mass, PImage img, PApplet p, SubPlot plt) {
-		super(pos, vel, mass, 0.5f, p.color(255));
+		super(pos, vel, mass, 0.2f, p.color(255));
 		dna = new DNA();
 		behaviours = new ArrayList<>();
 		this.plt = plt;
@@ -50,8 +50,10 @@ public class Boid extends Body {
 		PVector vd = new PVector();
 		for (Behaviour behaviour: behaviours){
 			PVector vdd = behaviour.getDesiredVelocity(this);
-			vdd.mult(behaviour.getWeight());
-			vd.add(vdd);
+			if(vdd != null){
+				vdd.mult(behaviour.getWeight());
+				vd.add(vdd);
+			}
 		}
 		move(dt, vd);
 	}

@@ -2,6 +2,7 @@ import ant.Ant;
 import ant.AntState;
 import ant.boid.Boid;
 import ant.boid.Eye;
+import ant.boid.behaviours.implementations.Brake;
 import ant.boid.behaviours.implementations.Seek;
 import ant.boid.behaviours.implementations.Wander;
 import ant.boid.physics.Body;
@@ -31,7 +32,7 @@ public class AntColonySimulator implements IProcessingApp {
     private Pheromones pheromones;
     private float pheromoneTimer = 0f;
     private float pheromoneWindow = 0.5f;
-    private int distanceNestFood = 5;
+    private int distanceNestFood = 10;
 
     @Override
     public void settings(PApplet p) {
@@ -43,17 +44,14 @@ public class AntColonySimulator implements IProcessingApp {
         PImage antImage = p.loadImage("assets/ant.png");
         PImage nestImage = p.loadImage("assets/nest.png");
         PImage foodImage = p.loadImage("assets/food.png");
-        PVector foodPosition = new PVector();
-        PVector nestPosition = new PVector();
-        foodPosition.x = foodPosition.x-distanceNestFood;
-        foodPosition.y = foodPosition.y+distanceNestFood;
+        PVector foodPosition = new PVector(-5, -5);
+        PVector nestPosition = new PVector(5, 5);
         plt = new SubPlot(window, viewport, p.width, p.height);
-        nest = new Nest(nestPosition, 3, 1f, nestImage, antImage, p, plt);
+        nest = new Nest(nestPosition, 20, 1f, nestImage, antImage, p, plt);
+        food = new Food(foodPosition,1f, foodImage, p, plt);
         ants = nest.getAnts();
 
-        pheromones = new Pheromones(p, plt, 50, 50, 2, 1);
-        //target = new Body(new PVector(), new PVector(), 1f, 0.2f, p.color(255,0,0));
-        food = new Food(foodPosition,1f, foodImage, p, plt);
+        pheromones = new Pheromones(p, plt, 100, 100, 2, 1);
         searchTrackingBodies = new ArrayList<>();
         searchTrackingBodies.add(food);
         returnTrackingBodies = new ArrayList<>();
@@ -61,7 +59,9 @@ public class AntColonySimulator implements IProcessingApp {
 
         for (Boid ant : ants) {
             ant.addBehaviour(new Wander(1f));
+            ant.addBehaviour(new Brake(1f));
             ant.addBehaviour(new Seek(1f));
+
             Eye eye = new Eye(ant, searchTrackingBodies);
             ant.setEye(eye);
         }
@@ -83,8 +83,9 @@ public class AntColonySimulator implements IProcessingApp {
                     searchTrackingBodies.add(pheromones.pixel2Cell(ant.getPos().x,ant.getPos().y));
                 }
             }
+
             target = ant.getTarget();
-            if(PVector.dist(target.getPos(), ant.getPos()) <= target.getRadius()){
+            if(target != null && PVector.dist(target.getPos(), ant.getPos()) <= target.getRadius()){
                 ant.switchState();
                 if(ant.getState() == AntState.SEARCH){
                     Eye eye = new Eye(ant, searchTrackingBodies);
