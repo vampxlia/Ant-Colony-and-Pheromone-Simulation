@@ -18,6 +18,7 @@ public class Nest implements SceneObject {
     private SubPlot plt;
     private PVector pos;
     private float radius;
+    private float intensity;
     public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, PApplet p, SubPlot plt){
         this.pos = pos;
         this.nestImage = nestImage;
@@ -27,6 +28,15 @@ public class Nest implements SceneObject {
         this.plt = plt;
         ants = new ArrayList<Ant>();
         spawnAnt(nAnts);
+        this.intensity = 1f;
+    }
+
+    public float getRadius(){
+        return radius;
+    }
+
+    public float getIntensity(){
+        return intensity;
     }
 
     public void display(PApplet p, SubPlot plt){

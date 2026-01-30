@@ -12,7 +12,7 @@ public class Seek extends Behaviour {
 
     @Override
     public PVector getDesiredVelocity(Boid me){
-        SceneObject target = me.eye.getTarget();
+        SceneObject target = me.eye.getBestTarget();
         return PVector.sub(target.getPos(), me.getPos());
     }
 }

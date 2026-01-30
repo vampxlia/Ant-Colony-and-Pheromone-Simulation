@@ -16,6 +16,10 @@ public abstract class Move implements SceneObject {
 		this.mass = mass;
 		acc = new PVector();
 	}
+
+	public float getIntensity(){
+		return 0f;
+	}
 	
 	public void applyForce(PVector force) {
 		acc.add(PVector.div(force, mass));

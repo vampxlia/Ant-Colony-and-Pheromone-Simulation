@@ -14,7 +14,7 @@ public class Pheromones extends CellularAutomata{
         for (int i=0;i<nrows;i++) {
             for (int j=0;j<ncols;j++) {
                 Pheromone pheromone = (Pheromone) cells[i][j];
-                pheromone.decay(0.01f);
+                pheromone.decay(0.005f);
             }
         }
     }
@@ -28,5 +28,16 @@ public class Pheromones extends CellularAutomata{
         }
         setMooreNeighbours();
     }
+
+    @Override
+    public Pheromone pixel2Cell(float x, float y) {
+        int row = (int)((y-ymin)/cellHeight);
+        int col = (int)((x-xmin)/cellWidth);
+        if(row>= nrows) row = nrows - 1;
+        if(col>= ncols) col = ncols - 1;
+        return (Pheromone) cells[row][col];
+    }
+
+
 
 }

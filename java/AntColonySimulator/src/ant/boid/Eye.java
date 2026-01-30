@@ -1,5 +1,6 @@
 package ant.boid;
 
+import ant.boid.physics.Body;
 import processing.core.PVector;
 import utils.SceneObject;
 
@@ -18,9 +19,40 @@ public class Eye {
         target = allTrackingBodies.get(0);
     }
 
-    public SceneObject getTarget() {
+    public SceneObject getTarget(){
         return target;
     }
+
+    public SceneObject getBestTarget() {
+
+        SceneObject best = target;
+        float bestScore = -Float.MAX_VALUE;
+        if(!farSight.isEmpty()) {
+            for (SceneObject obj : farSight) {
+
+                float dist = PVector.dist(me.getPos(), obj.getPos());
+                float normDist = 1.0f - dist / me.dna.visionDistance;
+                normDist = Math.max(0, normDist);
+
+                float normIntensity = obj.getIntensity();
+                // assumindo intensity ∈ [0,1]
+
+                float score =
+                        0.7f * normDist +
+                                0.3f * normIntensity;
+
+                if (score > bestScore) {
+                    bestScore = score;
+                    best = obj;
+                }
+            }
+        }
+        target = best;
+        //System.out.println(allTrackingBodies);
+        return target;
+    }
+
+
 
     public void look(){
         farSight = new ArrayList<>();

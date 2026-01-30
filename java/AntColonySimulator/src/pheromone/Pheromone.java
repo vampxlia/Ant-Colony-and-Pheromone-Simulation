@@ -17,6 +17,20 @@ public class Pheromone extends Cell implements SceneObject {
         this.returnIntensity = 0;
     }
 
+    public float getIntensity(){
+        if (searchIntensity>0){
+            return searchIntensity;
+        }
+        else if (returnIntensity>0){
+            return returnIntensity;
+        }
+        return 0f;
+    }
+
+    public float getRadius(){
+        return 0.5f;
+    }
+
     public void decay(float decayRate){
         //this.searchIntensity = (int) (this.searchIntensity - (this.searchIntensity * decayRate));
         //this.returnIntensity = (int) (this.returnIntensity  - (this.returnIntensity * decayRate));

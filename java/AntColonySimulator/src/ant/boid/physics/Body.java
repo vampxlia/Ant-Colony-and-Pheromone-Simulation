@@ -12,6 +12,10 @@ public class Body extends Move {
 		this.color = color;
 		this.radius = radius;
 	}
+
+	public float getRadius(){
+		return radius;
+	}
 	
 	public Body(PVector pos) {
 		super(pos, new PVector(), 0f);

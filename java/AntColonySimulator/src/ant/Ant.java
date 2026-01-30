@@ -1,11 +1,13 @@
 package ant;
 
 import ant.boid.Boid;
+import ant.boid.physics.Body;
 import pheromone.Pheromone;
 import pheromone.Pheromones;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
+import utils.SceneObject;
 import utils.gui.SubPlot;
 
 public class Ant extends Boid {
@@ -14,10 +16,19 @@ public class Ant extends Boid {
         super(pos, vel, mass, img, p, plt);
         this.state = AntState.SEARCH;
     }
-
+    public AntState getState() {
+        return state;
+    }
+    public SceneObject getTarget(){
+        return this.eye.getTarget();
+    }
     public void switchState(){
-        if (this.state == AntState.RETURN) this.state = AntState.SEARCH;
-        if (this.state == AntState.SEARCH) this.state = AntState.RETURN;
+        if(this.state == AntState.SEARCH){
+            this.state = AntState.RETURN;
+        }
+        else{
+            this.state = AntState.SEARCH;
+        }
     }
 
     public void dropPheromone(Pheromones pheromoneGrid){
