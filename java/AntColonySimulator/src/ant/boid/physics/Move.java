@@ -34,9 +34,26 @@ public abstract class Move implements SceneObject {
 	
 	public void move(float dt) {
 		vel.add(acc.mult(dt));
+		wrapAround();
 		pos.add(PVector.mult(vel,  dt));
 		acc.mult(0);
 	}
+
+	private void wrapAround() {
+
+		float xmin = -10;
+		float xmax =  10;
+		float ymin = -10;
+		float ymax =  10;
+
+		if (pos.x < xmin) pos.x = xmax;
+		else if (pos.x > xmax) pos.x = xmin;
+
+		if (pos.y < ymin) pos.y = ymax;
+		else if (pos.y > ymax) pos.y = ymin;
+	}
+
+
 	public void setPos(PVector pos) {
 		this.pos = pos;
 	}
