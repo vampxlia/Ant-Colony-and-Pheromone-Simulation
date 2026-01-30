@@ -83,6 +83,7 @@ public class CellularAutomata {
 		if(col>= ncols) col = ncols - 1;
 		return cells[row][col];
 	}
+
 	protected void setMooreNeighbours() {
 		int NN = (int)Math.pow(2*radiusNeigh+1,2);
 		for (int i=0;i<nrows;i++) {

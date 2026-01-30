@@ -10,7 +10,8 @@ public class Brake extends Behaviour {
 	}
 	
 	public PVector getDesiredVelocity(Boid me) {
-		return new PVector();
+		//return me.getVel().copy().mult(-1);
+		return new PVector(0,0);
 	}
 
 }

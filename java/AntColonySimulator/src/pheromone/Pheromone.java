@@ -73,4 +73,9 @@ public class Pheromone extends Cell implements SceneObject {
                            (ca.ymin + row * ca.getCellHeight()) + (ca.getCellHeight() / 2));
                               //inicio plot + nCelulas*tamanho + tamanho / 2
     }
+
+    public void remove() {
+        searchIntensity = 0f;
+        returnIntensity = 0f;
+    }
 }

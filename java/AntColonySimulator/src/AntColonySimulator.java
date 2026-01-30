@@ -78,15 +78,23 @@ public class AntColonySimulator implements IProcessingApp {
         pheromones.update();
         pheromoneTimer += dt;
         music.update(dt, ants);
+
         for (Ant ant : ants) {
             ant.applyBehavious(dt);
             ant.display(p, plt);
+            //if (pheromones.pixel2Cell(ant.getPos().x, ant.getPos().y) != null){
+              //  pheromones.pixel2Cell(ant.getPos().x, ant.getPos().y).remove();
+            //}
             if(pheromoneTimer >= pheromoneWindow) {
                 ant.dropPheromone(pheromones);
                 if(ant.getState() == AntState.SEARCH){
-                    returnTrackingBodies.add(pheromones.pixel2Cell(ant.getPos().x,ant.getPos().y));
+                    if(ant.getPos().x > 0 && ant.getPos().y > 0 && ant.getPos().x < 1000 && ant.getPos().y < 1000) {
+                        returnTrackingBodies.add(pheromones.pixel2Cell(ant.getPos().x, ant.getPos().y));
+                    }
                 } else if(ant.getState() == AntState.RETURN){
-                    searchTrackingBodies.add(pheromones.pixel2Cell(ant.getPos().x,ant.getPos().y));
+                    if(ant.getPos().x > 0 && ant.getPos().y > 0 && ant.getPos().x < 1000 && ant.getPos().y < 1000) {
+                        searchTrackingBodies.add(pheromones.pixel2Cell(ant.getPos().x, ant.getPos().y));
+                    }
                 }
             }
 
