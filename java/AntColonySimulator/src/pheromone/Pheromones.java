@@ -14,7 +14,7 @@ public class Pheromones extends CellularAutomata{
         for (int i=0;i<nrows;i++) {
             for (int j=0;j<ncols;j++) {
                 Pheromone pheromone = (Pheromone) cells[i][j];
-                pheromone.decay(0.1f);
+                pheromone.decay(0.01f);
             }
         }
     }

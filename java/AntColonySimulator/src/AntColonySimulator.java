@@ -38,7 +38,7 @@ public class AntColonySimulator implements IProcessingApp {
         nest = new Nest(new PVector(), 3, 1f, nestImage, antImage, p, plt);
         ants = nest.getAnts();
 
-        pheromones = new Pheromones(p, plt, 200, 200, 2, 1);
+        pheromones = new Pheromones(p, plt, 50, 50, 2, 1);
         target = new Body(new PVector(), new PVector(), 1f, 0.2f, p.color(255,0,0));
         allTrackingBodies = new ArrayList<>();
         allTrackingBodies.add(target);
@@ -53,14 +53,15 @@ public class AntColonySimulator implements IProcessingApp {
     @Override
     public void draw(PApplet p, float dt) {
         p.background(0);
-        pheromones.display(p);
-
+        pheromones.update();
         for (Ant ant : ants) {
             ant.applyBehavious(dt);
             ant.display(p, plt);
             ant.dropPheromone(pheromones);
         }
         nest.display(p, plt);
+        pheromones.display(p);
+
     }
 
     @Override

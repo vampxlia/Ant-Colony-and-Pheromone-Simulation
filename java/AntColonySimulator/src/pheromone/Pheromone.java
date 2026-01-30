@@ -3,15 +3,13 @@ package pheromone;
 import pheromone.ca.Cell;
 import pheromone.ca.CellularAutomata;
 import processing.core.PApplet;
-import processing.core.PImage;
 import processing.core.PVector;
 import utils.SceneObject;
 
 
-
 public class Pheromone extends Cell implements SceneObject {
-    private int searchIntensity;
-    private int returnIntensity;
+    protected float searchIntensity;
+    protected float returnIntensity;
 
     public Pheromone(CellularAutomata ca, int row, int col) {
         super(ca, row, col);
@@ -20,8 +18,10 @@ public class Pheromone extends Cell implements SceneObject {
     }
 
     public void decay(float decayRate){
-        this.searchIntensity = (int) (this.searchIntensity * decayRate);
-        this.returnIntensity = (int) (this.returnIntensity * decayRate);
+        //this.searchIntensity = (int) (this.searchIntensity - (this.searchIntensity * decayRate));
+        //this.returnIntensity = (int) (this.returnIntensity  - (this.returnIntensity * decayRate));
+        this.searchIntensity = Math.max(this.searchIntensity - decayRate, 0);
+        this.returnIntensity = Math.max(this.returnIntensity - decayRate, 0);
     }
 
     public void newReturnPheromone(){
@@ -34,8 +34,11 @@ public class Pheromone extends Cell implements SceneObject {
 
     @Override
     public void display(PApplet p){
-        int searchAlpha = 255 * searchIntensity;
-        int returnAlpha = 255 * returnIntensity;
+        int searchAlpha = (int) (160 * searchIntensity);
+        int returnAlpha = (int) (160 * returnIntensity);
+
+        if(this.searchIntensity > 100) System.out.println(searchIntensity);
+
 
         p.pushStyle();
         p.noStroke();
