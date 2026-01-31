@@ -2,11 +2,8 @@ package ant.boid;
 
 import ant.AntState;
 import ant.boid.behaviours.Behaviour;
-import ant.boid.behaviours.implementations.FollowPheromone;
-import ant.boid.behaviours.implementations.Seek;
 import ant.boid.physics.Body;
 import processing.core.PApplet;
-import processing.core.PImage;
 import processing.core.PVector;
 import utils.gui.SubPlot;
 

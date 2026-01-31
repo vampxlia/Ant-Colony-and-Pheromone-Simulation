@@ -2,7 +2,6 @@ package ant;
 
 import ant.boid.Boid;
 import ant.boid.Eye;
-import ant.boid.physics.Body;
 import food.Food;
 import nest.Nest;
 import pheromone.Pheromone;

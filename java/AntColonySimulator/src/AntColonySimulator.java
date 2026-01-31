@@ -1,17 +1,11 @@
-import ant.Ant;
-import ant.AntState;
-import ant.boid.Boid;
-import ant.boid.Eye;
 import food.Food;
 import nest.Nest;
 import pheromone.Pheromones;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
-import utils.SceneObject;
 import utils.gui.IProcessingApp;
 import utils.gui.SubPlot;
-import java.util.ArrayList;
 
 public class AntColonySimulator implements IProcessingApp {
     private Nest nest;
@@ -42,8 +36,6 @@ public class AntColonySimulator implements IProcessingApp {
         nest = new Nest(nestPosition, 20, 1f, nestImage, antImage, antFoodImage, p, plt, pheromones);
         food = new Food(foodPosition,1f, foodImage, p, plt);
         music = new MusicSystem();
-
-
     }
 
     @Override

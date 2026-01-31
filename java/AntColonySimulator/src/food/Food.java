@@ -1,8 +1,6 @@
 package food;
 
-import ant.Ant;
 import ant.AntState;
-import ant.boid.Boid;
 import ant.boid.physics.Body;
 import processing.core.PApplet;
 import processing.core.PImage;
