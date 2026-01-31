@@ -35,7 +35,7 @@ public class Boid extends Body {
 	public void setShape(PApplet p, SubPlot plt){
 		//
 		//p.imageMode(p.CENTER);
-		//p.image(img, 0, 0, );
+		//p.image(img, 0, 0);
 	}
 
 	public void addBehaviour(Behaviour behaviour){
@@ -72,13 +72,16 @@ public class Boid extends Body {
 		//TODO imagens não estão a representar corretamente a posição por razões que me iludem
 		//por agora deixei um círculo branco só para dar para ver algo
 		//remover super quando estiver fixed
-		super.display(p, plt);
+		//super.display(p, plt);
 
-		//float[] rr = plt.getVectorCoord(radius, radius);
-		//float[] pp = plt.getPixelCoord(pos.x, pos.y);
-		//p.translate(pp[0], pp[1]);
-		//p.rotate(vel.heading());
-		//p.imageMode(p.CENTER);
-		//p.image(img, 0,0, rr[0], rr[1]);
+		float[] rr = plt.getVectorCoord(radius, radius);
+		float[] pp = plt.getPixelCoord(pos.x, pos.y);
+
+		p.pushMatrix();
+		p.translate(pp[0], pp[1]);
+		p.rotate(vel.heading());
+		p.imageMode(p.CENTER);
+		p.image(img, 0,0, rr[0], rr[1]);
+		p.popMatrix();
 	}
 }

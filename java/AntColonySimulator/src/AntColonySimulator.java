@@ -19,12 +19,9 @@ public class AntColonySimulator implements IProcessingApp {
     private final double[] window = {-10, 10, -10, 10};
     private final float[] viewport = {0,0,1,1};
     private SubPlot plt;
-    private SceneObject target;
     private ArrayList<Ant> ants;
     private ArrayList<SceneObject> allTrackingBodies;
-    private ArrayList<SceneObject> returnTrackingBodies;
     private Pheromones pheromones;
-    private int distanceNestFood = 10;
     private MusicSystem music;
 
 
@@ -68,9 +65,6 @@ public class AntColonySimulator implements IProcessingApp {
 
         music.update(dt, ants);
 
-        //atualizar listas para seguir
-        //allTrackingBodies = pheromones.getActivePheromones(0.2f, food, nest);
-
         for (Ant ant : ants) {
             if(ant.getState() == AntState.RETURN){
                 allTrackingBodies = new ArrayList<>();
@@ -91,8 +85,7 @@ public class AntColonySimulator implements IProcessingApp {
 
     @Override
     public void mousePressed(PApplet p) {
-        //double[] ww = plt.getWorldCoord(p.mouseX, p.mouseY);
-        //target.setPos(new PVector((float)ww[0], (float)ww[1]));
+
     }
 
     @Override

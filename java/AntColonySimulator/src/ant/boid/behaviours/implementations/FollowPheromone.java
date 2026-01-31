@@ -19,9 +19,7 @@ public class FollowPheromone extends Behaviour {
 	@Override
 	public PVector getDesiredVelocity(Boid me) {
 
-		if (!(me instanceof Ant)) return new PVector(0,0);
-
-		Ant ant = (Ant) me;
+		if (!(me instanceof Ant ant)) return new PVector(0,0);
 
 		// se ainda não há sistema de feromonas, não interfere
 		if (pheromones == null) {

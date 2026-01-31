@@ -72,9 +72,9 @@ public class Nest implements SceneObject {
     public void spawnAnt(int nAnts){
         for (int i = 0; i < nAnts; i++){
             Ant ant = new Ant(this.pos, new PVector(), 1F, antImage, p, plt);
-            ant.addBehaviour(new Wander(1f));
-            ant.addBehaviour(new FollowPheromone(2.5f, pheromones));
-            ant.addBehaviour(new Seek(2f));   // só food/nest
+            ant.addBehaviour(new Wander(0.5f));
+            ant.addBehaviour(new FollowPheromone(2f, pheromones));
+            ant.addBehaviour(new Seek(2.5f));   // só food/nest
 
             ants.add(ant);
         }

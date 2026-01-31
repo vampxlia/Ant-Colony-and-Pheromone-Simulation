@@ -44,21 +44,6 @@ public class Pheromones extends CellularAutomata{
         return (Pheromone) cells[row][col];
     }
 
-    public ArrayList<SceneObject> getActivePheromones(float threshold, Food food, Nest nest){
-        ArrayList<SceneObject> searchPheromonesList = new ArrayList<>();
-        searchPheromonesList.add(food);
-        searchPheromonesList.add(nest);
-        for (int i=0;i<nrows;i++) {
-            for (int j=0;j<ncols;j++) {
-                Pheromone pheromone = (Pheromone) cells[i][j];
-                if (pheromone.returnIntensity > threshold || pheromone.searchIntensity > threshold){
-                    searchPheromonesList.add(pheromone);
-                }
-            }
-        }
-        return  searchPheromonesList;
-    }
-
     public PVector getSteeringForce(PVector pos, AntState state){
 
         // 1. Converter posição da formiga → célula atual
