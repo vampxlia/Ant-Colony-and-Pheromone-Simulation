@@ -13,7 +13,7 @@ public class DNA {
 
     public DNA(){
         //basics
-        this.maxSpeed = random(4, 4);
+        this.maxSpeed = random(3, 3);
         this.maxForce = random(2, 2);
         visionDistance = random(5, 5);
         visionSafeDistance = 0.25f * visionDistance;

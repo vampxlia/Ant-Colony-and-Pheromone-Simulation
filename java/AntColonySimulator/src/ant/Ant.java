@@ -18,10 +18,18 @@ import java.util.ArrayList;
 public class Ant extends Boid {
     public AntState state;
     private float intensity;
-    public Ant(PVector pos, PVector vel, float mass, PImage img, PApplet p, SubPlot plt) {
-        super(pos, vel, mass, img, p, plt);
+    private PImage img;
+    private final PImage antImage;
+    private final PImage foodImage;
+    private final Nest nest;
+    public Ant(PVector pos, PVector vel, float mass, PImage antImage, PImage foodImage, PApplet p, SubPlot plt, Nest nest) {
+        super(pos, vel, mass, p, plt);
+        this.antImage = antImage;
+        this.foodImage = foodImage;
+        this.img = antImage;
         this.state = AntState.SEARCH;
         this.intensity = 1f;
+        this.nest = nest;
     }
     public AntState getState() {
         return state;
@@ -30,19 +38,21 @@ public class Ant extends Boid {
         return this.eye.getTarget();
     }
 
-    public void updateStateAndEye(Nest nest, Food food, ArrayList<SceneObject> targets) {
+    public void updateStateAndEye(Food food, ArrayList<SceneObject> targets) {
         super.eye = new Eye(this, targets);
         if (this.state == AntState.SEARCH) {
             if (PVector.dist(this.pos, food.getPos()) < food.getRadius()) {
                 this.state = AntState.RETURN;
-                this.vel = new PVector();
+                this.img = foodImage;
+                this.vel.rotate((float) Math.PI); //Quando bate no sítio desejado, vira ao contrário para facilitar retorno
                 intensity = 1f;
             }
         }
         if (this.state == AntState.RETURN) {
             if (PVector.dist(this.pos, nest.getPos()) < nest.getRadius()) {
                 this.state = AntState.SEARCH;
-                this.vel = new PVector();
+                this.img = antImage;
+                this.vel.rotate((float) Math.PI);
                 intensity = 1f;
             }
         }
@@ -54,7 +64,7 @@ public class Ant extends Boid {
             if (this.state == AntState.SEARCH) pheromone.newSearchPheromone(intensity);
             if (this.state == AntState.RETURN) pheromone.newReturnPheromone(intensity);
         //}
-        if(intensity != 0f){
+        if(intensity > 0f){
             intensity -= 0.02f;
         }
     }
@@ -65,5 +75,23 @@ public class Ant extends Boid {
             return intensity;
         }
         return 0;
+    }
+
+    @Override
+    public void display(PApplet p, SubPlot plt){
+        //TODO imagens não estão a representar corretamente a posição por razões que me iludem
+        //por agora deixei um círculo branco só para dar para ver algo
+        //remover super quando estiver fixed
+        //super.display(p, plt);
+
+        float[] rr = plt.getVectorCoord(radius, radius);
+        float[] pp = plt.getPixelCoord(pos.x, pos.y);
+
+        p.pushMatrix();
+        p.translate(pp[0], pp[1]);
+        p.rotate(vel.heading());
+        p.imageMode(p.CENTER);
+        p.image(img, 0,0, rr[0], rr[1]);
+        p.popMatrix();
     }
 }

@@ -19,8 +19,6 @@ public class AntColonySimulator implements IProcessingApp {
     private final double[] window = {-10, 10, -10, 10};
     private final float[] viewport = {0,0,1,1};
     private SubPlot plt;
-    private ArrayList<Ant> ants;
-    private ArrayList<SceneObject> allTrackingBodies;
     private Pheromones pheromones;
     private MusicSystem music;
 
@@ -34,25 +32,15 @@ public class AntColonySimulator implements IProcessingApp {
     @Override
     public void setup(PApplet p) {
         PImage antImage = p.loadImage("assets/ant.png");
+        PImage antFoodImage = p.loadImage("assets/ant_with_food.png");
         PImage nestImage = p.loadImage("assets/nest.png");
         PImage foodImage = p.loadImage("assets/food.png");
         PVector foodPosition = new PVector(3, 3);
         PVector nestPosition = new PVector(-3, -3);
         plt = new SubPlot(window, viewport, p.width, p.height);
         pheromones = new Pheromones(p, plt, 100, 100, 2, 1);
-        nest = new Nest(nestPosition, 20, 1f, nestImage, antImage, p, plt, pheromones);
+        nest = new Nest(nestPosition, 20, 1f, nestImage, antImage, antFoodImage, p, plt, pheromones);
         food = new Food(foodPosition,1f, foodImage, p, plt);
-        ants = nest.getAnts();
-
-        allTrackingBodies = new ArrayList<>();
-        allTrackingBodies.add(food);
-        allTrackingBodies.add(nest);
-
-        for (Boid ant : ants) {
-            Eye eye = new Eye(ant, allTrackingBodies);
-            ant.setEye(eye);
-        }
-
         music = new MusicSystem();
 
 
@@ -62,24 +50,11 @@ public class AntColonySimulator implements IProcessingApp {
     public void draw(PApplet p, float dt) {
         p.background(0);
         pheromones.update();
-
-        music.update(dt, ants);
-
-        for (Ant ant : ants) {
-            if(ant.getState() == AntState.RETURN){
-                allTrackingBodies = new ArrayList<>();
-                allTrackingBodies.add(nest);
-            }
-            else{
-                allTrackingBodies = new ArrayList<>();
-                allTrackingBodies.add(food);
-            }
-            ant.updateStateAndEye(nest, food, allTrackingBodies);
-        }
-
-        nest.display(p, plt, dt, pheromones);
-        food.display(p, plt);
         pheromones.display(p);
+        nest.display(p, plt, dt, food, pheromones);
+        music.update(dt, nest.getAnts());
+        food.display(p, plt);
+
 
     }
 
