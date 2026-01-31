@@ -1,15 +1,10 @@
 package pheromone;
 
 import ant.AntState;
-import food.Food;
-import nest.Nest;
 import pheromone.ca.CellularAutomata;
 import processing.core.PApplet;
 import processing.core.PVector;
-import utils.SceneObject;
 import utils.gui.SubPlot;
-
-import java.util.ArrayList;
 
 public class Pheromones extends CellularAutomata{
     public Pheromones(PApplet p, SubPlot plt, int nrows, int ncols, int nStates, int radiusNeigh) {

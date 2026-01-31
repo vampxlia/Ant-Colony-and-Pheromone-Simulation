@@ -1,6 +1,5 @@
 package ant.boid;
 
-import ant.boid.physics.Body;
 import processing.core.PVector;
 import utils.SceneObject;
 
