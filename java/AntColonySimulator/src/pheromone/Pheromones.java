@@ -1,9 +1,11 @@
 package pheromone;
 
+import ant.AntState;
 import food.Food;
 import nest.Nest;
 import pheromone.ca.CellularAutomata;
 import processing.core.PApplet;
+import processing.core.PVector;
 import utils.SceneObject;
 import utils.gui.SubPlot;
 
@@ -49,9 +51,56 @@ public class Pheromones extends CellularAutomata{
         for (int i=0;i<nrows;i++) {
             for (int j=0;j<ncols;j++) {
                 Pheromone pheromone = (Pheromone) cells[i][j];
-                if (pheromone.returnIntensity > threshold || pheromone.searchIntensity > threshold) searchPheromonesList.add(pheromone);
+                if (pheromone.returnIntensity > threshold || pheromone.searchIntensity > threshold){
+                    searchPheromonesList.add(pheromone);
+                }
             }
         }
         return  searchPheromonesList;
     }
+
+    public PVector getSteeringForce(PVector pos, AntState state){
+
+        // 1. Converter posição da formiga → célula atual
+        Pheromone center = (Pheromone) world2Cell(pos.x, pos.y);
+        int row = center.getRow();
+        int col = center.getCol();
+
+        PVector force = new PVector();
+
+        // 2. Percorrer vizinhança Moore (3x3)
+        for (int dr = -1; dr <= 1; dr++) {
+            for (int dc = -1; dc <= 1; dc++) {
+
+                // ignora a célula central
+                if (dr == 0 && dc == 0) continue;
+
+                int r = row + dr;
+                int c = col + dc;
+
+                // 3. Verificar limites (SEM wrap)
+                if (r < 0 || r >= nrows || c < 0 || c >= ncols) continue;
+
+                Pheromone ph = (Pheromone) cells[r][c];
+                float intensity = ph.getIntensity(state);
+
+                if (intensity <= 0) continue;
+
+                // 4. Direção REAL no espaço do mundo
+                PVector cellCenter = getCenterCell(r, c);
+                PVector dir = PVector.sub(cellCenter, pos);
+
+                if (dir.magSq() == 0) continue;
+
+                dir.normalize();
+                dir.mult(intensity);
+
+                force.add(dir);
+            }
+        }
+
+        return force;
+    }
+
+
 }

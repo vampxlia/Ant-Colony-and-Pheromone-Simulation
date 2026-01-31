@@ -1,9 +1,7 @@
 import ant.Ant;
+import ant.AntState;
 import ant.boid.Boid;
 import ant.boid.Eye;
-import ant.boid.behaviours.implementations.Brake;
-import ant.boid.behaviours.implementations.Seek;
-import ant.boid.behaviours.implementations.Wander;
 import food.Food;
 import nest.Nest;
 import pheromone.Pheromones;
@@ -44,11 +42,11 @@ public class AntColonySimulator implements IProcessingApp {
         PVector foodPosition = new PVector(3, 3);
         PVector nestPosition = new PVector(-3, -3);
         plt = new SubPlot(window, viewport, p.width, p.height);
-        nest = new Nest(nestPosition, 20, 1f, nestImage, antImage, p, plt);
+        pheromones = new Pheromones(p, plt, 100, 100, 2, 1);
+        nest = new Nest(nestPosition, 20, 1f, nestImage, antImage, p, plt, pheromones);
         food = new Food(foodPosition,1f, foodImage, p, plt);
         ants = nest.getAnts();
 
-        pheromones = new Pheromones(p, plt, 100, 100, 2, 1);
         allTrackingBodies = new ArrayList<>();
         allTrackingBodies.add(food);
         allTrackingBodies.add(nest);
@@ -71,9 +69,17 @@ public class AntColonySimulator implements IProcessingApp {
         music.update(dt, ants);
 
         //atualizar listas para seguir
-        allTrackingBodies = pheromones.getActivePheromones(0.2f, food, nest);
+        //allTrackingBodies = pheromones.getActivePheromones(0.2f, food, nest);
 
         for (Ant ant : ants) {
+            if(ant.getState() == AntState.RETURN){
+                allTrackingBodies = new ArrayList<>();
+                allTrackingBodies.add(nest);
+            }
+            else{
+                allTrackingBodies = new ArrayList<>();
+                allTrackingBodies.add(food);
+            }
             ant.updateStateAndEye(nest, food, allTrackingBodies);
         }
 

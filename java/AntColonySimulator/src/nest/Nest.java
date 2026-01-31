@@ -2,9 +2,7 @@ package nest;
 
 import ant.Ant;
 import ant.AntState;
-import ant.boid.Boid;
-import ant.boid.Eye;
-import ant.boid.behaviours.implementations.Brake;
+import ant.boid.behaviours.implementations.FollowPheromone;
 import ant.boid.behaviours.implementations.Seek;
 import ant.boid.behaviours.implementations.Wander;
 import pheromone.Pheromones;
@@ -27,7 +25,8 @@ public class Nest implements SceneObject {
     private final float intensity;
     private float pheromoneWindow = 0.5f;
     private float pheromoneTimer = 0f;
-    public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, PApplet p, SubPlot plt){
+    private Pheromones pheromones;
+    public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, PApplet p, SubPlot plt, Pheromones pheromones){
         this.pos = pos;
         this.nestImage = nestImage;
         this.antImage = antImage;
@@ -37,6 +36,7 @@ public class Nest implements SceneObject {
         ants = new ArrayList<Ant>();
         spawnAnt(nAnts);
         this.intensity = 2f;
+        this.pheromones = pheromones;
     }
 
     public float getRadius(){
@@ -72,8 +72,10 @@ public class Nest implements SceneObject {
     public void spawnAnt(int nAnts){
         for (int i = 0; i < nAnts; i++){
             Ant ant = new Ant(this.pos, new PVector(), 1F, antImage, p, plt);
-            ant.addBehaviour(new Seek(1f));
             ant.addBehaviour(new Wander(1f));
+            ant.addBehaviour(new FollowPheromone(2.5f, pheromones));
+            ant.addBehaviour(new Seek(2f));   // só food/nest
+
             ants.add(ant);
         }
     }

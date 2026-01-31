@@ -20,7 +20,7 @@ public class DNA {
         visionAngle = (float) (Math.PI);
 
         //wander
-        radiusWander = random(3f,3f);
+        radiusWander = random(2f,2f);
         deltaTWander = random(1f, 1f);
         deltaPhiWander = (float)Math.PI/4;
     }
