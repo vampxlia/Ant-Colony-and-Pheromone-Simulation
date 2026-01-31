@@ -45,12 +45,14 @@ public class MusicSystem {
 
     private void playFromAnts(List<Ant> ants) {
         if (ants.size() < 2) return;
-
-        Ant a1 = ants.get(rng.nextInt(ants.size()));
+        for (int i = 0; i < ants.size(); i++) {
+            playAnt(ants.get(i));
+        }
+        /*Ant a1 = ants.get(rng.nextInt(ants.size()));
         Ant a2 = ants.get(rng.nextInt(ants.size()));
 
         playAnt(a1);
-        playAnt(a2);
+        playAnt(a2);*/
     }
 
     private void playAnt(Ant ant) {

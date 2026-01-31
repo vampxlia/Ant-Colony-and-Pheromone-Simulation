@@ -52,10 +52,10 @@ public class Pheromones extends CellularAutomata{
         int col = center.getCol();
 
         PVector force = new PVector();
-
+        int vizinhanca = 10;
         // 2. Percorrer vizinhança Moore (3x3)
-        for (int dr = -1; dr <= 1; dr++) {
-            for (int dc = -1; dc <= 1; dc++) {
+        for (int dr = -vizinhanca; dr <= vizinhanca; dr++) {
+            for (int dc = -vizinhanca; dc <= vizinhanca; dc++) {
 
                 // ignora a célula central
                 if (dr == 0 && dc == 0) continue;
@@ -63,7 +63,7 @@ public class Pheromones extends CellularAutomata{
                 int r = row + dr;
                 int c = col + dc;
 
-                // 3. Verificar limites (SEM wrap)
+                // 3. Verificar limites
                 if (r < 0 || r >= nrows || c < 0 || c >= ncols) continue;
 
                 Pheromone ph = (Pheromone) cells[r][c];
