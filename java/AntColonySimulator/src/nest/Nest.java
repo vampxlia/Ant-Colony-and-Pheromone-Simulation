@@ -141,7 +141,7 @@ public class Nest implements SceneObject {
             Ant ant = new Ant(this.pos, new PVector(), 1F, antImage, antFoodImage, p, plt, this);
             //por causa do break no applyBehaviors, ordem importa
             ant.addBehaviour(new Seek(20f));   // só food/nest
-            ant.addBehaviour(new FollowPheromone(20f, pheromones));
+            ant.addBehaviour(new FollowPheromone(10f, pheromones));
             ant.addBehaviour(new Wander(10f));
 
             ants.add(ant);
