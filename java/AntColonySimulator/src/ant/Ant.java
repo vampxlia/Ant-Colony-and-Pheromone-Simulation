@@ -21,6 +21,8 @@ public class Ant extends Boid {
     private final PImage antImage;
     private final PImage foodImage;
     private final Nest nest;
+    public boolean foodFound = false;
+    public boolean foodReturned = false;
     public Ant(PVector pos, PVector vel, float mass, PImage antImage, PImage foodImage, PApplet p, SubPlot plt, Nest nest) {
         super(pos, vel, mass, p, plt);
         this.antImage = antImage;
@@ -45,6 +47,7 @@ public class Ant extends Boid {
                 this.img = foodImage;
                 this.vel.rotate((float) Math.PI); //Quando bate no sítio desejado, vira ao contrário para facilitar retorno
                 intensity = 1f;
+                foodFound = true;
             }
         }
         if (this.state == AntState.RETURN) {
@@ -53,6 +56,7 @@ public class Ant extends Boid {
                 this.img = antImage;
                 this.vel.rotate((float) Math.PI);
                 intensity = 1f;
+                foodReturned = true;
             }
         }
     }
@@ -76,12 +80,10 @@ public class Ant extends Boid {
         return 0;
     }
 
+
+
     @Override
     public void display(PApplet p, SubPlot plt){
-        //TODO imagens não estão a representar corretamente a posição por razões que me iludem
-        //por agora deixei um círculo branco só para dar para ver algo
-        //remover super quando estiver fixed
-        //super.display(p, plt);
 
         float[] rr = plt.getVectorCoord(radius, radius);
         float[] pp = plt.getPixelCoord(pos.x, pos.y);

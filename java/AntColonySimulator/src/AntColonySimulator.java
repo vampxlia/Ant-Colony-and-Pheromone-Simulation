@@ -15,6 +15,8 @@ public class AntColonySimulator implements IProcessingApp {
     private SubPlot plt;
     private Pheromones pheromones;
     private MusicSystem music;
+    private float timeSinceStart;
+    private boolean printed;
 
 
 
@@ -33,9 +35,11 @@ public class AntColonySimulator implements IProcessingApp {
         PVector nestPosition = new PVector(-3, -3);
         plt = new SubPlot(window, viewport, p.width, p.height);
         pheromones = new Pheromones(p, plt, 100, 100, 2, 1);
-        nest = new Nest(nestPosition, 20, 1f, nestImage, antImage, antFoodImage, p, plt, pheromones);
+        nest = new Nest(nestPosition, 200, 1f, nestImage, antImage, antFoodImage, p, plt, pheromones);
         food = new Food(foodPosition,1f, foodImage, p, plt);
         music = new MusicSystem();
+        timeSinceStart = 0;
+        printed = false;
     }
 
     @Override
@@ -46,6 +50,15 @@ public class AntColonySimulator implements IProcessingApp {
         nest.display(p, plt, dt, food, pheromones);
         music.update(dt, nest.getAnts());
         food.display(p, plt);
+        nest.countTotalSwitchedAnts();
+        timeSinceStart += dt;
+        if(timeSinceStart >= 30 && printed == false){
+            System.out.println("Média da intensidade das formigas: " + nest.getAvgIntensity());
+            System.out.println("Total de comida entregue ao ninho: " + nest.getTotalFoodReturned());
+            System.out.println("Total de comida recolhida: " + nest.getTotalFoodFound());
+            System.out.println("Número de mortes de formigas: " + nest.getDeaths());
+            printed = true;
+        }
 
 
     }
