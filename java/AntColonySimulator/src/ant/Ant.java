@@ -39,15 +39,17 @@ public class Ant extends Boid {
         return this.eye.getTarget();
     }
 
-    public void updateStateAndEye(Food food, ArrayList<SceneObject> targets) {
+    public void updateStateAndEye(ArrayList<SceneObject> targets) {
         super.eye = new Eye(this, targets);
         if (this.state == AntState.SEARCH) {
-            if (PVector.dist(this.pos, food.getPos()) < food.getRadius()) {
-                this.state = AntState.RETURN;
-                this.img = foodImage;
-                this.vel.rotate((float) Math.PI); //Quando bate no sítio desejado, vira ao contrário para facilitar retorno
-                intensity = 1f;
-                foodFound = true;
+            for(SceneObject target : targets) {
+                if (PVector.dist(this.pos, target.getPos()) < target.getRadius()) {
+                    this.state = AntState.RETURN;
+                    this.img = foodImage;
+                    this.vel.rotate((float) Math.PI); //Quando bate no sítio desejado, vira ao contrário para facilitar retorno
+                    intensity = 1f;
+                    foodFound = true;
+                }
             }
         }
         if (this.state == AntState.RETURN) {

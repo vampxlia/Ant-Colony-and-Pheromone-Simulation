@@ -36,6 +36,8 @@ public class Pheromones extends CellularAutomata{
         int col = (int)((x-xmin)/cellWidth);
         if(row>= nrows) row = nrows - 1;
         if(col>= ncols) col = ncols - 1;
+        if(row<= 0) row = 0;
+        if(col<= 0) col = 0;
         return (Pheromone) cells[row][col];
     }
 
@@ -48,7 +50,7 @@ public class Pheromones extends CellularAutomata{
 
         PVector force = new PVector();
         int vizinhanca = 10;
-        // 2. Percorrer vizinhança Moore (3x3)
+        // Percorrer vizinhança Moore (3x3)
         for (int dr = -vizinhanca; dr <= vizinhanca; dr++) {
             for (int dc = -vizinhanca; dc <= vizinhanca; dc++) {
 

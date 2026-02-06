@@ -14,6 +14,7 @@ import utils.SceneObject;
 import utils.gui.SubPlot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Nest implements SceneObject {
     private ArrayList<Ant> ants;
@@ -31,6 +32,8 @@ public class Nest implements SceneObject {
     private int totalFoodFound = 0;
     private int totalFoodReturned = 0;
     private int deaths = 0;
+    private int risings = 0;
+    private int foodInNest = 0;
     public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, PImage antFoodImage, PApplet p, SubPlot plt, Pheromones pheromones){
         this.pos = pos;
         this.nestImage = nestImage;
@@ -59,6 +62,8 @@ public class Nest implements SceneObject {
     }
 
     public void countTotalSwitchedAnts(){
+        int born = 0;
+        boolean foodReturned = totalFoodReturned % 3 == 0;
         for(Ant ant : ants){
             if(ant.foodFound){
                 totalFoodFound++;
@@ -66,9 +71,20 @@ public class Nest implements SceneObject {
             }
             else if(ant.foodReturned){
                 totalFoodReturned++;
+                foodInNest++;
                 ant.foodReturned = false;
+                if (foodInNest > 3){
+                    foodInNest -= 3;
+                    born++;
+                }
             }
         }
+        spawnAnt(born);
+        risings += born;
+    }
+
+    public int getRisings(){
+        return risings;
     }
 
     public int getTotalFoodFound(){
@@ -78,13 +94,13 @@ public class Nest implements SceneObject {
         return totalFoodReturned;
     }
 
-    public void display(PApplet p, SubPlot plt, float dt, Food food, Pheromones pheromones){
+    public void display(PApplet p, SubPlot plt, float dt, Food[] food, Pheromones pheromones){
 
         pheromoneTimer += dt;
         for (int i = 0; i < ants.size(); i++){
             if (ants.get(i).getIntensity(ants.get(i).state) <= 0){ //se intensidade chegar a 0, formiga respawna no formigueiro
                 ants.remove(ants.get(i));
-                spawnAnt(1);
+                //spawnAnt(1);
                 deaths++;
             }
         }
@@ -108,7 +124,7 @@ public class Nest implements SceneObject {
 
     }
 
-    private void applyEyes(Food food){
+    private void applyEyes(Food[] food){
         for (Ant ant : ants) {
             ArrayList<SceneObject> allTrackingBodies;
             if(ant.getState() == AntState.RETURN){
@@ -116,10 +132,9 @@ public class Nest implements SceneObject {
                 allTrackingBodies.add(this);
             }
             else{
-                allTrackingBodies = new ArrayList<>();
-                allTrackingBodies.add(food);
+                allTrackingBodies = new ArrayList<>(Arrays.asList(food));
             }
-            ant.updateStateAndEye(food, allTrackingBodies);
+            ant.updateStateAndEye(allTrackingBodies);
         }
     }
 
@@ -139,10 +154,9 @@ public class Nest implements SceneObject {
     public void spawnAnt(int nAnts){
         for (int i = 0; i < nAnts; i++){
             Ant ant = new Ant(this.pos, new PVector(), 1F, antImage, antFoodImage, p, plt, this);
-            //por causa do break no applyBehaviors, ordem importa
-            ant.addBehaviour(new Seek(20f));   // só food/nest
-            ant.addBehaviour(new FollowPheromone(10f, pheromones));
-            ant.addBehaviour(new Wander(10f));
+            ant.addBehaviour(new Seek(1f));   // só food/nest
+            ant.addBehaviour(new FollowPheromone(0.3f, pheromones));
+            ant.addBehaviour(new Wander(0.3f));
 
             ants.add(ant);
         }
