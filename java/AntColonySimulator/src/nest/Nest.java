@@ -34,6 +34,7 @@ public class Nest implements SceneObject {
     private int deaths = 0;
     private int risings = 0;
     private int foodInNest = 0;
+    private int nAnts;
     public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, PImage antFoodImage, PApplet p, SubPlot plt, Pheromones pheromones){
         this.pos = pos;
         this.nestImage = nestImage;
@@ -44,6 +45,7 @@ public class Nest implements SceneObject {
         this.plt = plt;
         ants = new ArrayList<>();
         spawnAnt(nAnts);
+        this.nAnts = nAnts;
         this.intensity = 2f;
         this.pheromones = pheromones;
     }
@@ -73,7 +75,7 @@ public class Nest implements SceneObject {
                 totalFoodReturned++;
                 foodInNest++;
                 ant.foodReturned = false;
-                if (foodInNest > 3){
+                if (foodInNest > 3 && ants.size() <= nAnts){
                     foodInNest -= 3;
                     born++;
                 }
