@@ -8,9 +8,9 @@ public class CellularAutomata {
 	protected int nrows;
 	protected int ncols;
 	protected int nStates;
-	private int radiusNeigh;
+	private final int radiusNeigh;
 	protected Cell[][] cells;
-	private int[] colors;
+	private final int[] colors;
 	protected float cellWidth, cellHeight; //pixels
 	public float xmin;
 	public float ymin;
@@ -46,11 +46,7 @@ public class CellularAutomata {
 			colors[i] = p.color(p.random(255), p.random(255), p.random(255));
 		}
 	}
-	
-	public void setStateColors(int[] colors) {
-		this.colors = colors;
-	}
-	
+
 	public int[] getStateColors() {
 		return colors;
 	}

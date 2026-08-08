@@ -2,11 +2,11 @@ package ant;
 
 import ant.boid.Boid;
 import ant.boid.Eye;
-import food.Food;
 import nest.Nest;
 import pheromone.Pheromone;
 import pheromone.Pheromones;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PVector;
 import utils.SceneObject;
@@ -34,9 +34,6 @@ public class Ant extends Boid {
     }
     public AntState getState() {
         return state;
-    }
-    public SceneObject getTarget(){
-        return this.eye.getTarget();
     }
 
     public void updateStateAndEye(ArrayList<SceneObject> targets) {
@@ -93,7 +90,7 @@ public class Ant extends Boid {
         p.pushMatrix();
         p.translate(pp[0], pp[1]);
         p.rotate(vel.heading());
-        p.imageMode(p.CENTER);
+        p.imageMode(PConstants.CENTER);
         p.image(img, 0,0, rr[0], rr[1]);
         p.popMatrix();
     }

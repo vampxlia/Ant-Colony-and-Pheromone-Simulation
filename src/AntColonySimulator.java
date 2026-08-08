@@ -10,7 +10,6 @@ import utils.gui.SubPlot;
 public class AntColonySimulator implements IProcessingApp {
     private Nest nest;
     private Food food;
-    private Food food2;
     private final double[] window = {-10, 10, -10, 10};
     private final float[] viewport = {0,0,1,1};
     private SubPlot plt;
@@ -18,8 +17,6 @@ public class AntColonySimulator implements IProcessingApp {
     private MusicSystem music;
     private float timeSinceStart;
     private boolean printed;
-    private Food[] foodList;
-
 
 
     @Override
@@ -51,7 +48,7 @@ public class AntColonySimulator implements IProcessingApp {
         p.background(0);
         pheromones.update();
         pheromones.display(p);
-        foodList = new Food[1];
+        Food[] foodList = new Food[1];
         foodList[0] = food;
         //foodList[1] = food2;
         nest.display(p, plt, dt, foodList, pheromones);
@@ -60,7 +57,7 @@ public class AntColonySimulator implements IProcessingApp {
         //food2.display(p, plt);
         nest.countTotalSwitchedAnts();
         timeSinceStart += dt;
-        if(timeSinceStart >= 30 && printed == false){
+        if(timeSinceStart >= 30 && !printed){
             System.out.println("Média da intensidade das formigas: " + nest.getAvgIntensity());
             System.out.println("Total de comida entregue ao ninho: " + nest.getTotalFoodReturned());
             System.out.println("Total de comida recolhida: " + nest.getTotalFoodFound());

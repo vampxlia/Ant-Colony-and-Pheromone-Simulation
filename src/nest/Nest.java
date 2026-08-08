@@ -8,6 +8,7 @@ import ant.boid.behaviours.implementations.Wander;
 import food.Food;
 import pheromone.Pheromones;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 import processing.core.PVector;
 import utils.SceneObject;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Nest implements SceneObject {
-    private ArrayList<Ant> ants;
+    private final ArrayList<Ant> ants;
     private final PImage nestImage;
     private final PImage antImage;
     private final PImage antFoodImage;
@@ -26,15 +27,14 @@ public class Nest implements SceneObject {
     private final PVector pos;
     private final float radius;
     private final float intensity;
-    private float pheromoneWindow = 0.5f;
     private float pheromoneTimer = 0f;
-    private Pheromones pheromones;
+    private final Pheromones pheromones;
     private int totalFoodFound = 0;
     private int totalFoodReturned = 0;
     private int deaths = 0;
     private int risings = 0;
     private int foodInNest = 0;
-    private int nAnts;
+    private final int nAnts;
     public Nest(PVector pos, int nAnts, float radius, PImage nestImage, PImage antImage, PImage antFoodImage, PApplet p, SubPlot plt, Pheromones pheromones){
         this.pos = pos;
         this.nestImage = nestImage;
@@ -108,6 +108,7 @@ public class Nest implements SceneObject {
         }
         this.applyEyes(food);
 
+        float pheromoneWindow = 0.5f;
         for (Ant ant : ants) {
             ant.applyBehavious(dt);
             ant.display(p, plt);
@@ -121,7 +122,7 @@ public class Nest implements SceneObject {
 
         float[] rr = plt.getVectorCoord(radius, radius);
         float[] pp = plt.getPixelCoord(pos.x, pos.y);
-        p.imageMode(p.CENTER);
+        p.imageMode(PConstants.CENTER);
         p.image(nestImage, pp[0],pp[1], rr[0], rr[1]);
 
     }

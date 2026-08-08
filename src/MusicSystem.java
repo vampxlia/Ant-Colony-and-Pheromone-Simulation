@@ -5,27 +5,24 @@ import java.util.*;
 
 public class MusicSystem {
 
-    private Synthesizer synth;
     private MidiChannel[] channels;
 
-    private int[] instruments = {
-            0, 11, 24, 40, 48, 56, 64, 73, 88, 98
-    };
-
-    private int[] scale = {0, 2, 4, 5, 7, 9, 11}; // escala maior
+    private final int[] scale = {0, 2, 4, 5, 7, 9, 11}; // escala maior
     private boolean useScale = true;
 
     private float timer = 0f;
-    private float interval = 0.25f;
 
-    private Random rng = new Random();
+    private final Random rng = new Random();
 
     public MusicSystem() {
         try {
-            synth = MidiSystem.getSynthesizer();
+            Synthesizer synth = MidiSystem.getSynthesizer();
             synth.open();
             channels = synth.getChannels();
 
+            int[] instruments = {
+                    0, 11, 24, 40, 48, 56, 64, 73, 88, 98
+            };
             for (int i = 0; i < instruments.length; i++) {
                 channels[i].programChange(instruments[i]);
             }
@@ -37,6 +34,7 @@ public class MusicSystem {
 
     public void update(float dt, List<Ant> ants) {
         timer += dt;
+        float interval = 0.25f;
         if (timer >= interval) {
             timer = 0f;
             playFromAnts(ants);
@@ -45,14 +43,9 @@ public class MusicSystem {
 
     private void playFromAnts(List<Ant> ants) {
         if (ants.size() < 2) return;
-        for (int i = 0; i < ants.size(); i++) {
-            playAnt(ants.get(i));
+        for (Ant ant : ants) {
+            playAnt(ant);
         }
-        /*Ant a1 = ants.get(rng.nextInt(ants.size()));
-        Ant a2 = ants.get(rng.nextInt(ants.size()));
-
-        playAnt(a1);
-        playAnt(a2);*/
     }
 
     private void playAnt(Ant ant) {
@@ -65,7 +58,7 @@ public class MusicSystem {
         float py = (y + 10f) / 20f * 1000f;
 
         // instrumento
-        int instrumentIndex = constrain((int)(px / 100f), 0, 9);
+        int instrumentIndex = constrain((int)(px / 100f));
 
         // oitava (5 em loop)
         int octave = ((int)(py / 200f)) % 5;
@@ -93,8 +86,8 @@ public class MusicSystem {
         }, 300);
     }
 
-    private int constrain(int v, int min, int max) {
-        return Math.max(min, Math.min(max, v));
+    private int constrain(int v) {
+        return Math.clamp(v, 0, 9);
     }
 
     public void setUseScale(boolean v) {

@@ -16,8 +16,7 @@ public class Seek extends Behaviour {
         if(target == null) return null;
 
         PVector desired = PVector.sub(target.getPos(), me.getPos());
-        PVector steering = PVector.sub(desired, me.getVel());
-        return steering;
+        return PVector.sub(desired, me.getVel());
     }
 
 }

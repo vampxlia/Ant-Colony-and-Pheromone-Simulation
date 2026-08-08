@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e5ed3d32-aa88-4cba-9c4e-fa6c8d78b6a3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AntColonySimulator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AntColonySimulator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MusicSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MusicSystem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ant/Ant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ant/Ant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ant/boid/Boid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ant/boid/Boid.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ant/boid/DNA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ant/boid/DNA.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ant/boid/Eye.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ant/boid/Eye.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ant/boid/behaviours/implementations/Brake.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ant/boid/behaviours/implementations/FollowPheromone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ant/boid/behaviours/implementations/FollowPheromone.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ant/boid/behaviours/implementations/Seek.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ant/boid/behaviours/implementations/Seek.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ant/boid/physics/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ant/boid/physics/Body.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ant/boid/physics/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ant/boid/physics/Move.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/configs/Configs.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/food/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/food/Food.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grid/Grid.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nest/Nest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/nest/Nest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pheromone/Pheromone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pheromone/Pheromone.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pheromone/Pheromones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pheromone/Pheromones.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pheromone/ca/Cell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pheromone/ca/Cell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pheromone/ca/CellularAutomata.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pheromone/ca/CellularAutomata.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/PSControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/SceneObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/SceneObject.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,12 +27,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5,
-  "fromUser": false
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3Hc362fFtxDTcV4dtrcqqzb04Ip" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -44,6 +42,7 @@
   "keyToString": {
     "Application.ProcessingSetup.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
@@ -51,10 +50,29 @@
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/kingofthevoi/Documents/Ant-Colony-and-Pheromone-Simulation/java/AntColonySimulator",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Ant-Colony-and-Pheromone-Simulation" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Ant-Colony-and-Pheromone-Simulation" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -71,10 +89,16 @@
       <option name="presentableId" value="Default" />
       <updated>1786153353688</updated>
       <workItem from="1786153356651" duration="93000" />
+      <workItem from="1786153613176" duration="1019000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$USER_HOME$" />
+    </ignored-roots>
   </component>
 </project>

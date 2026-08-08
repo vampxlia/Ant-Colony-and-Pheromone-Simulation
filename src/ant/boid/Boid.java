@@ -1,6 +1,5 @@
 package ant.boid;
 
-import ant.AntState;
 import ant.boid.behaviours.Behaviour;
 import ant.boid.physics.Body;
 import processing.core.PApplet;
@@ -11,9 +10,7 @@ import java.util.ArrayList;
 
 public class Boid extends Body {
 
-	public AntState state;
-	private SubPlot plt;
-	private ArrayList<Behaviour> behaviours;
+    private final ArrayList<Behaviour> behaviours;
 	public DNA dna;
 	public Eye eye;
 	public float phiWander;
@@ -21,26 +18,15 @@ public class Boid extends Body {
 		super(pos, vel, mass, 0.2f, p.color(255));
 		dna = new DNA();
 		behaviours = new ArrayList<>();
-		this.plt = plt;
-		setShape(p, plt);
-	}
-
-	public void setEye(Eye eye){
-		this.eye = eye;
+        setShape(p, plt);
 	}
 
 	public void setShape(PApplet p, SubPlot plt){
-		//
-		//p.imageMode(p.CENTER);
-		//p.image(img, 0, 0);
+
 	}
 
 	public void addBehaviour(Behaviour behaviour){
 		behaviours.add(behaviour);
-	}
-
-	public void removeBehaviour(Behaviour behaviour){
-		behaviours.remove(behaviour);
 	}
 
 	public void applyBehavious(float dt){
@@ -52,7 +38,6 @@ public class Boid extends Body {
 			if (vdd != null && (vdd.x != 0 && vdd.y != 0)){
 				vdd.mult(behaviour.getWeight());
 				vd.add(vdd);
-				//if (behaviour instanceof FollowPheromone) break; //evitar wander caso esteja a seguir feromona
 			}
 		}
 		move(dt, vd);

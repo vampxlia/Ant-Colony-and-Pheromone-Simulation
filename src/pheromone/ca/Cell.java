@@ -20,17 +20,9 @@ public class Cell {
 	public void setNeighbours(Cell[] vizinhos) {
 		this.neighbours = vizinhos;
 	}
-	
+
 	public Cell[] getNeighbours(){
 		return neighbours;
-	}
-	
-	public void setState(int estado) {
-		this.state = estado;
-	}
-	
-	public int getState(){
-		return state;
 	}
 
 	public int getRow() { return row; }

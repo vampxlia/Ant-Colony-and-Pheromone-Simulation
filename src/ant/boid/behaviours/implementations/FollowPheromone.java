@@ -9,7 +9,7 @@ import processing.core.PVector;
 
 public class FollowPheromone extends Behaviour {
 
-	private Pheromones pheromones;
+	private final Pheromones pheromones;
 
 	public FollowPheromone(float weight, Pheromones pheromones) {
 		super(weight);

@@ -22,14 +22,7 @@ public class Body extends Move {
 	public float getRadius(){
 		return radius;
 	}
-	
-	public Body(PVector pos) {
-		super(pos, new PVector(), 0f);
-	}
-	
-	public void setColor(int color) {
-		this.color = color;
-	}
+
 	
 	public void display(PApplet p, SubPlot plt) {
 		p.pushStyle();

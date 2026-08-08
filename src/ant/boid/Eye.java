@@ -6,8 +6,8 @@ import utils.SceneObject;
 import java.util.ArrayList;
 
 public class Eye {
-    private ArrayList<SceneObject> bodies;
-    private Boid me;
+    private final ArrayList<SceneObject> bodies;
+    private final Boid me;
     private SceneObject target;
 
     public Eye(Boid me, ArrayList<SceneObject> bodies){
