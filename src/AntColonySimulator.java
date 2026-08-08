@@ -30,9 +30,9 @@ public class AntColonySimulator implements IProcessingApp {
         PImage antFoodImage = p.loadImage("assets/ant_with_food.png");
         PImage nestImage = p.loadImage("assets/nest.png");
         PImage foodImage = p.loadImage("assets/food.png");
-        PVector foodPosition = new PVector(3, 3);
+        PVector foodPosition = new PVector(3.5f, 3.5f);
         //PVector foodPosition2 = new PVector(-3, 3);
-        PVector nestPosition = new PVector(-3, -3);
+        PVector nestPosition = new PVector(-3.5f, -3.5f);
         plt = new SubPlot(window, viewport, p.width, p.height);
         pheromones = new Pheromones(p, plt, 100, 100, 2, 1);
         nest = new Nest(nestPosition, 200, 1f, nestImage, antImage, antFoodImage, p, plt, pheromones);
@@ -57,12 +57,12 @@ public class AntColonySimulator implements IProcessingApp {
         //food2.display(p, plt);
         nest.countTotalSwitchedAnts();
         timeSinceStart += dt;
-        if(timeSinceStart >= 30 && !printed){
-            System.out.println("Média da intensidade das formigas: " + nest.getAvgIntensity());
-            System.out.println("Total de comida entregue ao ninho: " + nest.getTotalFoodReturned());
-            System.out.println("Total de comida recolhida: " + nest.getTotalFoodFound());
-            System.out.println("Número de mortes de formigas: " + nest.getDeaths());
-            System.out.println("Número de nascimentos de formigas: " + nest.getRisings());
+        if(timeSinceStart >= 60 && !printed){
+            System.out.println("Average Ant Intensity: " + nest.getAvgIntensity());
+            System.out.println("Total food delivered to nest: " + nest.getTotalFoodReturned());
+            System.out.println("Total food gathered: " + nest.getTotalFoodFound());
+            System.out.println("Ant Deaths: " + nest.getDeaths());
+            System.out.println("Ant Births: " + nest.getRisings());
             printed = true;
         }
 
