@@ -2,8 +2,6 @@
 
 > A Simulation of an ant colony, showcasing emergent behavior through modeling how ants locate food and establish routes using trails of pheromones, eventually converging on the most efficient path.
 
-<img width="1920" height="1033" alt="Screenshot (883)" src="https://github.com/user-attachments/assets/e4467e47-3534-4493-8833-9539c3a2ec8f" />
-
 ---
 
 ## Features
