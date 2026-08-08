@@ -1,9 +1,9 @@
 package ant.boid;
 
-import ant.AntState;
 import ant.boid.behaviours.Behaviour;
 import ant.boid.physics.Body;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
 import utils.gui.SubPlot;
 
@@ -11,17 +11,18 @@ import java.util.ArrayList;
 
 public class Boid extends Body {
 
-	public AntState state;
 	private SubPlot plt;
+	private PImage img;
 	private ArrayList<Behaviour> behaviours;
 	public DNA dna;
 	public Eye eye;
 	public float phiWander;
-	public Boid(PVector pos, PVector vel, float mass, PApplet p, SubPlot plt) {
+	public Boid(PVector pos, PVector vel, float mass, PImage img, PApplet p, SubPlot plt) {
 		super(pos, vel, mass, 0.2f, p.color(255));
 		dna = new DNA();
 		behaviours = new ArrayList<>();
 		this.plt = plt;
+		this.img = img.copy();
 		setShape(p, plt);
 	}
 
@@ -32,7 +33,7 @@ public class Boid extends Body {
 	public void setShape(PApplet p, SubPlot plt){
 		//
 		//p.imageMode(p.CENTER);
-		//p.image(img, 0, 0);
+		//p.image(img, 0, 0, );
 	}
 
 	public void addBehaviour(Behaviour behaviour){
@@ -49,10 +50,9 @@ public class Boid extends Body {
 		PVector vd = new PVector();
 		for (Behaviour behaviour: behaviours){
 			PVector vdd = behaviour.getDesiredVelocity(this);
-			if (vdd != null && (vdd.x != 0 && vdd.y != 0)){
+			if(vdd != null){
 				vdd.mult(behaviour.getWeight());
 				vd.add(vdd);
-				//if (behaviour instanceof FollowPheromone) break; //evitar wander caso esteja a seguir feromona
 			}
 		}
 		move(dt, vd);
@@ -63,5 +63,20 @@ public class Boid extends Body {
 		PVector fs = PVector.sub(vd, vel);
 		applyForce(fs.limit(dna.maxSpeed));
 		super.move(dt);
+	}
+
+	@Override
+	public void display(PApplet p, SubPlot plt){
+		//TODO imagens não estão a representar corretamente a posição por razões que me iludem
+		//por agora deixei um círculo branco só para dar para ver algo
+		//remover super quando estiver fixed
+		super.display(p, plt);
+
+		//float[] rr = plt.getVectorCoord(radius, radius);
+		//float[] pp = plt.getPixelCoord(pos.x, pos.y);
+		//p.translate(pp[0], pp[1]);
+		//p.rotate(vel.heading());
+		//p.imageMode(p.CENTER);
+		//p.image(img, 0,0, rr[0], rr[1]);
 	}
 }

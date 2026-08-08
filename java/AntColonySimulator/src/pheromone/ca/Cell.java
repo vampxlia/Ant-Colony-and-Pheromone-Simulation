@@ -32,10 +32,6 @@ public class Cell {
 	public int getState(){
 		return state;
 	}
-
-	public int getRow() { return row; }
-
-	public int getCol() { return col; }
 	
 	public void display(PApplet p) {
 		p.pushStyle();

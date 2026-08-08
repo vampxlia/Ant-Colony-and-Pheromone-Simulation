@@ -13,14 +13,14 @@ public class DNA {
 
     public DNA(){
         //basics
-        this.maxSpeed = random(3, 3);
-        this.maxForce = random(2, 2);
-        visionDistance = random(5, 5);
+        this.maxSpeed = random(3, 5);
+        this.maxForce = random(4, 7);
+        visionDistance = random(1, 1);
         visionSafeDistance = 0.25f * visionDistance;
-        visionAngle = (float) (Math.PI);
+        visionAngle = (float) (Math.PI) / 2;
 
         //wander
-        radiusWander = random(2f,2f);
+        radiusWander = random(3f,3f);
         deltaTWander = random(1f, 1f);
         deltaPhiWander = (float)Math.PI/4;
     }

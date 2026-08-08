@@ -38,12 +38,12 @@ public class Pheromone extends Cell implements SceneObject {
         this.returnIntensity = Math.max(this.returnIntensity - decayRate, 0);
     }
 
-    public void newReturnPheromone(float intensity){
-        this.returnIntensity = intensity;
+    public void newReturnPheromone(){
+        this.returnIntensity = 1;
     }
 
-    public void newSearchPheromone(float intensity){
-        this.searchIntensity = intensity;
+    public void newSearchPheromone(){
+        this.searchIntensity = 1;
     }
 
     @Override
