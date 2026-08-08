@@ -1,8 +1,9 @@
 package pheromone;
 
-import pheromone.ca.Cell;
+import ant.AntState;
 import pheromone.ca.CellularAutomata;
 import processing.core.PApplet;
+import processing.core.PVector;
 import utils.gui.SubPlot;
 
 public class Pheromones extends CellularAutomata{
@@ -14,7 +15,7 @@ public class Pheromones extends CellularAutomata{
         for (int i=0;i<nrows;i++) {
             for (int j=0;j<ncols;j++) {
                 Pheromone pheromone = (Pheromone) cells[i][j];
-                pheromone.decay(0.005f);
+                pheromone.decay(0.001f);
             }
         }
     }
@@ -35,9 +36,53 @@ public class Pheromones extends CellularAutomata{
         int col = (int)((x-xmin)/cellWidth);
         if(row>= nrows) row = nrows - 1;
         if(col>= ncols) col = ncols - 1;
+        if(row<= 0) row = 0;
+        if(col<= 0) col = 0;
         return (Pheromone) cells[row][col];
     }
 
+    public PVector getSteeringForce(PVector pos, AntState state){
+
+        // 1. Converter posição da formiga → célula atual
+        Pheromone center = (Pheromone) world2Cell(pos.x, pos.y);
+        int row = center.getRow();
+        int col = center.getCol();
+
+        PVector force = new PVector();
+        int vizinhanca = 10;
+        // Percorrer vizinhança Moore (3x3)
+        for (int dr = -vizinhanca; dr <= vizinhanca; dr++) {
+            for (int dc = -vizinhanca; dc <= vizinhanca; dc++) {
+
+                // ignora a célula central
+                if (dr == 0 && dc == 0) continue;
+
+                int r = row + dr;
+                int c = col + dc;
+
+                // 3. Verificar limites
+                if (r < 0 || r >= nrows || c < 0 || c >= ncols) continue;
+
+                Pheromone ph = (Pheromone) cells[r][c];
+                float intensity = ph.getIntensity(state);
+
+                if (intensity <= 0) continue;
+
+                // 4. Direção REAL no espaço do mundo
+                PVector cellCenter = getCenterCell(r, c);
+                PVector dir = PVector.sub(cellCenter, pos);
+
+                if (dir.magSq() == 0) continue;
+
+                dir.normalize();
+                dir.mult(intensity);
+
+                force.add(dir);
+            }
+        }
+
+        return force;
+    }
 
 
 }
