@@ -25,14 +25,11 @@
 ## Prerequisites
 
 Ensure you have the following installed on your machine before running the application:
-
-[TODO]
+- **Java** or **Java Development Kit** version 21 or higher
 
 ---
 
 ## Getting Started & Setup Instructions
 
-Follow these step-by-step instructions to set up and execute the application locally:
-
-[TODO]
+To run the simulator simply download and execute the .jar file present [here](https://github.com/vampxlia/Ant-Colony-and-Pheromone-Simulation/releases/latest)
  
